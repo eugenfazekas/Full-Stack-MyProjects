@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS USERS;
+
+CREATE TABLE IF NOT EXISTS USERS (
+id VARCHAR(36) PRIMARY KEY, 
+username VARCHAR(64) NOT NULL, UNIQUE KEY UK_username (username), 
+password VARCHAR(64) NOT NULL, 
+activationcode VARCHAR(64) NOT NULL,
+ active BOOLEAN, 
+ authorities VARCHAR(64) NOT NULL
+ );
