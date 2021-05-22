@@ -15,6 +15,15 @@ public class UserServiceImpl implements UserService{
 		this.userRepository = userRepository;
 	}
 
+	public void createUsersTable() {
+		userRepository.createUsersTable();
+	}
+
+	public void dropUsersTable() {
+		userRepository.dropUsersTable();
+		
+	}
+	
 	public User findById(String id) {
 
 		return userRepository.findById(id);

@@ -4,6 +4,10 @@ import com.model.User;
 
 public interface UserRepository {
 
+	void createUsersTable();
+	
+	void dropUsersTable();
+	
 	User findById(String id);
 	
 	User findByEmail(String email);

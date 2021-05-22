@@ -15,7 +15,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public UserDetails loadUserByUsername(String username)  {
+	public UserDetailsImpl loadUserByUsername(String username)  {
 
 		User user = userRepository.findByEmail(username);
 		if(user == null) {

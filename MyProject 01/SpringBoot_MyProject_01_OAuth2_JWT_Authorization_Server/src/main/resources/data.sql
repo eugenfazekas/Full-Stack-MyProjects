@@ -1,1 +1,0 @@
-INSERT INTO USERS (id,username,password,activationCode,active,authorities) VALUES ('1','John','myPassword','code',true,'read');

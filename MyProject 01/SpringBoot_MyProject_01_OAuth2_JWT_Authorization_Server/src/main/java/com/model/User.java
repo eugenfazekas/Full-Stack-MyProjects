@@ -5,7 +5,7 @@ import java.util.List;
 public class User {
 	
 	private String id;
-	private String username;
+	private String email;
 	private String password;
 	private String activationCode;
 	private boolean active;
@@ -13,19 +13,15 @@ public class User {
 
 	public User() {}
 		
-	
-
-	public User(String id, String username, String password, String activationCode, boolean active,
+	public User(String id, String email, String password, String activationCode, boolean active,
 			List<String> authorities) {
 		this.id = id;
-		this.username = username;
+		this.email = email;
 		this.password = password;
 		this.activationCode = activationCode;
 		this.active = active;
 		this.authorities = authorities;
 	}
-
-
 
 	public String getId() {
 		return id;
@@ -35,12 +31,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -77,7 +73,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", active=" + active
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", active=" + active
 				+ ", authorities=" + authorities + "]";
 	}
 }
