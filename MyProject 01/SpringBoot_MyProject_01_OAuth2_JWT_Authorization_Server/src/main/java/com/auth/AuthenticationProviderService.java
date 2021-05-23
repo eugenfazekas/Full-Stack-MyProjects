@@ -18,15 +18,14 @@ public class AuthenticationProviderService implements AuthenticationProvider {
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
 	
-	@Autowired
+	@Autowired 
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
 		String username = authentication.getName();
-		String password = authentication.getCredentials().toString();
-		
+		String password = authentication.getCredentials().toString();	
 		UserDetailsImpl user = userDetailsService.loadUserByUsername(username);
 		
 		if(passwordEncoder.matches(password, user.getPassword())) {

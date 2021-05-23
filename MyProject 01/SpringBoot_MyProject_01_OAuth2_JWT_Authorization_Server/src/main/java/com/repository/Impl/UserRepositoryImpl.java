@@ -32,6 +32,8 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			n.setId(rs.getString("id"));
 			n.setEmail(rs.getString("email"));
 			n.setPassword(rs.getString("password"));
+			n.setActivationCode(rs.getString("activationCode"));
+			n.setActive(rs.getBoolean("active"));
 			n.setAuthorities(Arrays.asList(rs.getString("authorities").split(" ")));
 			
 			return n;
