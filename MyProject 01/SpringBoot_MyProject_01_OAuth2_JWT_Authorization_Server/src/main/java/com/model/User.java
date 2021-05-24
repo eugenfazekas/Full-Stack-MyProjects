@@ -7,20 +7,14 @@ public class User {
 	private String id;
 	private String email;
 	private String password;
-	private String activationCode;
 	private boolean active;
 	private List<String> authorities;
 
 	public User() {}
 		
-	public User(String id, String email, String password, String activationCode, boolean active,
-			List<String> authorities) {
-		this.id = id;
+	public User(String email, String password) {
 		this.email = email;
 		this.password = password;
-		this.activationCode = activationCode;
-		this.active = active;
-		this.authorities = authorities;
 	}
 
 	public String getId() {
@@ -47,14 +41,6 @@ public class User {
 		this.password = password;
 	}
 
-	public String getActivationCode() {
-		return activationCode;
-	}
-
-	public void setActivationCode(String activationCode) {
-		this.activationCode = activationCode;
-	}
-
 	public boolean isActive() {
 		return active;
 	}
@@ -73,7 +59,6 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", active=" + active
-				+ ", authorities=" + authorities + "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", active=" + active+ "]";
 	}
 }

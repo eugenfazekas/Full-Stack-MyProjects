@@ -32,7 +32,6 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			n.setId(rs.getString("id"));
 			n.setEmail(rs.getString("email"));
 			n.setPassword(rs.getString("password"));
-			n.setActivationCode(rs.getString("activationCode"));
 			n.setActive(rs.getBoolean("active"));
 			n.setAuthorities(Arrays.asList(rs.getString("authorities").split(" ")));
 			
@@ -41,7 +40,7 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	};
 	
 	public void createUsersTable() {
-		final String  sql = "CREATE TABLE IF NOT EXISTS USERS (id VARCHAR(36) PRIMARY KEY, email VARCHAR(64) NOT NULL, UNIQUE KEY UK_email (email), password VARCHAR(64) NOT NULL, activationcode VARCHAR(64) NOT NULL, active BOOLEAN, authorities VARCHAR(64) NOT NULL);";
+		final String  sql = "CREATE TABLE IF NOT EXISTS USERS (id VARCHAR(36) PRIMARY KEY, email VARCHAR(64) NOT NULL, UNIQUE KEY UK_email (email), password VARCHAR(64) NOT NULL, active BOOLEAN, authorities VARCHAR(64) NOT NULL);";
 		jdbc.execute(sql);
 		log.debug("Users Table Created");
 	}
@@ -80,9 +79,9 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	public String registerUser(User user,String authorities) {
 	
-		final String sql = "INSERT INTO USERS (id,email,password,activationCode,active,authorities) VALUES (?,?,?,?,?,?)";
-		jdbc.update(sql,user.getId(),user.getEmail(),user.getPassword(),user.getActivationCode(),user.isActive(),authorities);
-		log.debug(user.toString());
+		final String sql = "INSERT INTO USERS (id,email,password,active,authorities) VALUES (?,?,?,?,?)";
+		jdbc.update(sql,user.getId(),user.getEmail(),user.getPassword(),user.isActive(),authorities);
+		log.debug("UserRepository registerUser "+user.toString());
 		return "User Registered";
 	}
 }

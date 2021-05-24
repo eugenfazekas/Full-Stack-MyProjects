@@ -1,7 +1,7 @@
 keystore :
-  password: password
+  password: ${KEYSTORE_PASSWORD}
   privateKey: cronos.jks
-  alias: cronos_server
+  alias: ${KEYSTORE_ALIAS}
 
 mysql:
   url : ${MYSQL_URL}

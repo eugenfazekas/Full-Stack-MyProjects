@@ -22,7 +22,7 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	public void run(String... args) throws Exception {
 		dropUsersTable();
 		createUsersTable();
-		createDummyUser();
+		//createDummyUser();
 	}
 
 	public void createUsersTable() {
@@ -34,7 +34,7 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	}
 
 	public void createDummyUser() {
-		userService.registerUser(new User("id1","John",new BCryptPasswordEncoder().encode("myPassword"),"activationCode",true, Arrays.asList("user")));
+		userService.registerUser(new User("John",new BCryptPasswordEncoder().encode("myPassword")));
 	}
 
 }

@@ -1,5 +1,10 @@
 package com.service.impl;
 
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.model.User;
@@ -8,6 +13,8 @@ import com.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{
+	
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	private UserRepository userRepository;
 
@@ -36,13 +43,13 @@ public class UserServiceImpl implements UserService{
 
 	public String registerUser(User user) {
 		
-		String authorities = "";
+		UUID uuid = UUID.randomUUID();	
+		user.setId(uuid.toString());
+	    user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+	    user.setActive(true);
+		userRepository.registerUser(user,"user");
 		
-		for (String userAuths : user.getAuthorities()) {
-			authorities += userAuths+ " ";
-			
-		}
-		userRepository.registerUser(user,authorities);
+		log.debug("UserService registerUser "+user.toString());
 		return null;
 	}
 
