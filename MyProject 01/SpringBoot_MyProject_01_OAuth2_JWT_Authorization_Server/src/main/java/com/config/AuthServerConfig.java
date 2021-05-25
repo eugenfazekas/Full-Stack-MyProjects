@@ -9,11 +9,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -52,11 +55,10 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-
-        var tokenEnhancers =
-                List.of(new CustomTokenEnhancer(),
-                        jwtAccessTokenConverter());
+        
+    	TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        //var tokenEnhancers = List.of(new CustomTokenEnhancer(), jwtAccessTokenConverter());
+    	 List<TokenEnhancer> tokenEnhancers = List.of(jwtAccessTokenConverter());
 
         tokenEnhancerChain.setTokenEnhancers(tokenEnhancers);
 
@@ -74,8 +76,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         var converter = new JwtAccessTokenConverter();
-        KeyStoreKeyFactory keyStoreKeyFactory =
-                new KeyStoreKeyFactory(
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
                         new ClassPathResource(privateKey),
                         password.toCharArray());
         converter.setKeyPair(keyStoreKeyFactory.getKeyPair(alias));
@@ -86,4 +87,5 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerSecurityConfigurer security) {
     	security.tokenKeyAccess("isAuthenticated()");
     }
+ 
 }

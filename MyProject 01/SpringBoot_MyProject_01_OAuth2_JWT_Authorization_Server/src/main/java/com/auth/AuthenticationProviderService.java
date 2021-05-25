@@ -28,9 +28,9 @@ public class AuthenticationProviderService implements AuthenticationProvider {
 		String password = authentication.getCredentials().toString();	
 		UserDetailsImpl user = userDetailsService.loadUserByUsername(username);
 		
-		if(passwordEncoder.matches(password, user.getPassword())) {
+		if(passwordEncoder.matches(password, user.getPassword()) && user.isEnabled() == true) {
 			return new UsernamePasswordAuthenticationToken(
-						username,
+						user.getId(),
 						password,
 						user.getAuthorities()
 					);

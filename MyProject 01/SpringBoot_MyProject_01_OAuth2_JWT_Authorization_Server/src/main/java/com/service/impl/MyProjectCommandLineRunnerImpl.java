@@ -22,7 +22,7 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	public void run(String... args) throws Exception {
 		dropUsersTable();
 		createUsersTable();
-		//createDummyUser();
+		createDummyUser();
 	}
 
 	public void createUsersTable() {
