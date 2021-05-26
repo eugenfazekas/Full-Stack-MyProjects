@@ -13,5 +13,6 @@ public interface UserService {
 	User findByEmail(String email);
 	
 	String registerUser(User user);
-
+	
+	boolean userExistCheck(String email);
 }

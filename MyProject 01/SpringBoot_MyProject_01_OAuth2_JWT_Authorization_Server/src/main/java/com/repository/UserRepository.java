@@ -13,4 +13,6 @@ public interface UserRepository {
 	User findByEmail(String email);
 	
 	String registerUser(User user, String authorities);
+	
+	public Integer userExistCheck(String email);
 }

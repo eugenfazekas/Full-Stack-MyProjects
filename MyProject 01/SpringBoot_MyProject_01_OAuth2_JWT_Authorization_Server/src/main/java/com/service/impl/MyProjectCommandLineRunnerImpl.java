@@ -1,7 +1,5 @@
 package com.service.impl;
 
-import java.util.Arrays;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -34,7 +32,7 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	}
 
 	public void createDummyUser() {
-		userService.registerUser(new User("John",new BCryptPasswordEncoder().encode("myPassword")));
+		userService.registerUser(new User("eu@fa.hu","myPassword"));
 	}
 
 }

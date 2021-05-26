@@ -49,8 +49,17 @@ public class UserServiceImpl implements UserService{
 	    user.setActive(true);
 		userRepository.registerUser(user,"user");
 		
-		log.debug("UserService registerUser "+user.toString());
+		log.debug("New User registered "+user.toString());
 		return null;
+	}
+	
+	@Override
+	public boolean userExistCheck(String email) {
+	
+		boolean response = userRepository.userExistCheck(email)  > 0 ? true : false;
+		log.debug("UserUserExistCheck "+ email+ " exist = " + response);
+		
+		return response;
 	}
 
 }

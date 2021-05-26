@@ -81,7 +81,17 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 		final String sql = "INSERT INTO USERS (id,email,password,active,authorities) VALUES (?,?,?,?,?)";
 		jdbc.update(sql,user.getId(),user.getEmail(),user.getPassword(),user.isActive(),authorities);
-		log.debug("UserRepository registerUser "+user.toString());
+		log.debug("New User registered "+user.toString());
 		return "User Registered";
+	}
+
+
+	@Override
+	public Integer userExistCheck(String email) {
+
+		final String  sql = "SELECT COUNT(*)  FROM USERS WHERE email = ?";
+		int user = jdbc.queryForObject(sql, new Object[] {email}, Integer.class); 
+		
+		return user;
 	}
 }
