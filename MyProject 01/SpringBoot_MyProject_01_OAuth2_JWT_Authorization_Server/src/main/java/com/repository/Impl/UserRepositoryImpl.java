@@ -94,4 +94,12 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		
 		return user;
 	}
+
+	
+	@Override
+	public void setActiveUser(String email) {
+	
+		final String  sql ="UPDATE users SET active = true  where email = ? ";
+		jdbc.update(sql, email);
+	}
 }

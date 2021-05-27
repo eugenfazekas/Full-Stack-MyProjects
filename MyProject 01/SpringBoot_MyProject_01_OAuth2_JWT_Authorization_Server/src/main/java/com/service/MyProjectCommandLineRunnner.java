@@ -7,4 +7,8 @@ public interface MyProjectCommandLineRunnner {
 	void dropUsersTable();
 	
 	void createDummyUser();
+	
+	void createAccountKeyTable();
+	
+	void dropAccountKeyTable();
 }

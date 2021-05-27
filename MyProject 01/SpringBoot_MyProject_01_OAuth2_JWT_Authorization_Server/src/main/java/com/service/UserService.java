@@ -15,4 +15,6 @@ public interface UserService {
 	String registerUser(User user);
 	
 	boolean userExistCheck(String email);
+	
+	String userActivation(String key);
 }

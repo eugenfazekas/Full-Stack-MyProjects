@@ -15,4 +15,6 @@ public interface UserRepository {
 	String registerUser(User user, String authorities);
 	
 	public Integer userExistCheck(String email);
+	
+	void setActiveUser(String email);
 }
