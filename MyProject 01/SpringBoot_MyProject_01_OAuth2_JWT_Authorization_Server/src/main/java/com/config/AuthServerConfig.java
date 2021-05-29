@@ -33,6 +33,9 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 	
 	@Value("${keystore.alias}")
     private String alias;
+	
+	@Value("${client.secret}")
+    private String secret;
   
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -44,7 +47,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("client")
-                .secret(passwordEncoder.encode("secret"))
+                .secret(passwordEncoder.encode(secret))
                 .authorizedGrantTypes("password", "refresh_token")
                 .scopes("read");
     }

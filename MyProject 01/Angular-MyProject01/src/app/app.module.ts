@@ -20,6 +20,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { LogLevel, LogService, } from './shared/services/log.service';
 import { HomeComponent } from './components/auth/home/home.component';
+import { FirstStepsComponent } from './first-steps/first-steps.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { HomeComponent } from './components/auth/home/home.component';
     LoginComponent,
     RegistrationComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    FirstStepsComponent
   ],
   imports: [
     BrowserModule,

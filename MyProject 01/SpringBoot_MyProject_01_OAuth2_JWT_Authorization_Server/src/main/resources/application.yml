@@ -27,3 +27,11 @@ emailservice:
   text3en : You can activate you're account by the followed link    
   validationLink: http://127.0.0.1:4800/user/userKeyCheck/    
   
+client:
+  secret: ${CLIENT_SECRET}  
+  
+auth:
+  server:
+    base:
+      url : ${RESOURCE_SERVER_BASE_URL} 
+  

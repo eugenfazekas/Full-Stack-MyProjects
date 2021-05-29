@@ -16,5 +16,5 @@ public interface UserService {
 	
 	boolean userExistCheck(String email);
 	
-	String userActivation(String key);
+	void userActivation(String key);
 }

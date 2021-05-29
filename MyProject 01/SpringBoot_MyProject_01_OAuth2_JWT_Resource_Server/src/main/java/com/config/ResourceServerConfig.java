@@ -3,6 +3,7 @@ package com.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -14,6 +15,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import com.auth.AdditionalClaimsAccessTokenConverter;
 
+@Order(1)
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
@@ -41,7 +43,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
 	public void configure (HttpSecurity http) throws Exception {
     	http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    	http.authorizeRequests().mvcMatchers("hello").hasAuthority("user")
+    	http.authorizeRequests().mvcMatchers("user/createUserResource").permitAll()
     		.and().authorizeRequests().anyRequest().authenticated();
 		http.cors().and();
     }

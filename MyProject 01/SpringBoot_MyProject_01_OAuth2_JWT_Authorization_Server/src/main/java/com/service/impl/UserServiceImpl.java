@@ -16,6 +16,7 @@ import com.repository.UserRepository;
 import com.service.AccountKeyService;
 import com.service.UserService;
 import com.util.EmailService;
+import com.util.ProxyServer;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -25,14 +26,15 @@ public class UserServiceImpl implements UserService{
 	private AccountKeyService accountKeyService;
 	private UserRepository userRepository;
 	private EmailService emailService;
-
+	private ProxyServer proxyServer;
+	
 	
 
-	public UserServiceImpl(AccountKeyService accountKeyService, UserRepository userRepository,
-			EmailService emailService) {
+	public UserServiceImpl(AccountKeyService accountKeyService, UserRepository userRepository, EmailService emailService, ProxyServer proxyServer) {
 		this.accountKeyService = accountKeyService;
 		this.userRepository = userRepository;
 		this.emailService = emailService;
+		this.proxyServer = proxyServer;
 	}
 
 	public void createUsersTable() {
@@ -87,7 +89,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String userActivation(String key) {
+	public void userActivation(String key) {
 	
 		boolean userExist = accountKeyService.keyCheck(key);
 		String activated = userExist == true ? "userActivated" : "notActivated";
@@ -95,7 +97,9 @@ public class UserServiceImpl implements UserService{
 			AccountKey account = accountKeyService.accountKey(key);
 			userRepository.setActiveUser(account.getEmail());
 			accountKeyService.removeKey(key);
+			proxyServer.sendNewUserId(userRepository.findByEmail(account.getEmail()).getId());
+			log.debug("User with email: "+account.getEmail() +" "+activated);
 		}
-		return activated;
+
 	}
 }
