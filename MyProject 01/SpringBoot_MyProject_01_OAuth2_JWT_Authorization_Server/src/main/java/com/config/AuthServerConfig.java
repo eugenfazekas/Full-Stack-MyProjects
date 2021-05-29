@@ -48,7 +48,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         clients.inMemory()
                 .withClient("client")
                 .secret(passwordEncoder.encode(secret))
-                .authorizedGrantTypes("password", "refresh_token")
+                .authorizedGrantTypes("password")
                 .scopes("read");
     }
 
@@ -56,9 +56,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         
     	TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        //var tokenEnhancers = List.of(new CustomTokenEnhancer(), jwtAccessTokenConverter());
-    	 List<TokenEnhancer> tokenEnhancers = List.of(jwtAccessTokenConverter());
-
+    	List<TokenEnhancer> tokenEnhancers = List.of(jwtAccessTokenConverter());
         tokenEnhancerChain.setTokenEnhancers(tokenEnhancers);
 
         endpoints

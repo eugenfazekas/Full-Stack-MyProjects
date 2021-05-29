@@ -16,6 +16,8 @@ public interface UserService {
 	public String getDate();
 	
 	public void createUserDirPath(String userId);
+	
+	public User findById(String id);
 
 	public User updateUser(User user);	
 	

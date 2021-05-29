@@ -9,18 +9,20 @@ import { ReactiveFormsModule } from  '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistrationComponent } from './components/no_auth/user/registration/registration.component';
 import { HeaderComponent } from './components/no_auth/header/header/header.component';
-import { UserRestDataSourceService, BASE_URL } from './rest-api/user-rest-data-source.service';
+import { UserRestDataSourceService, AUTH_URL, RESOURCE_URL } from './rest-api/user-rest-data-source.service';
 import { NxRouting } from './app.routing';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard} from './shared/guards/auth-guard';
 import { SignButtonToggleService } from './shared/services/sign-button-toggle.service';
-import { TokenService } from './shared/services/token.service';
+import { StorageTokenService } from './shared/services/storage-token.service';
 import { NxMaterialModule } from './shared/nx-material/nx-material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { LogLevel, LogService, } from './shared/services/log.service';
 import { HomeComponent } from './components/auth/home/home.component';
-import { FirstStepsComponent } from './first-steps/first-steps.component';
+import { FirstStepsComponent } from './components/auth/first-steps/first-steps.component';
+import { LocalStorageService } from './shared/services/local-storage.service';
+import { UserRepository } from './repository/user-repository';
 
 
 @NgModule({
@@ -45,11 +47,12 @@ import { FirstStepsComponent } from './first-steps/first-steps.component';
   ],
   providers: [
               UserRestDataSourceService,
-              { provide: BASE_URL, useValue: 'http://localhost:4800'},
+              { provide: AUTH_URL, useValue: 'http://localhost:4800'},
+              { provide: RESOURCE_URL, useValue: 'http://localhost:8080'},
               AuthService,
               AuthGuard,
               SignButtonToggleService,
-              TokenService,
+              StorageTokenService,
               { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
               { provide: LogLevel, useValue: LogLevel.INFO },
               { provide: LogService, 
@@ -60,6 +63,8 @@ import { FirstStepsComponent } from './first-steps/first-steps.component';
                   return logger;
               } 
             },
+            LocalStorageService,
+            UserRepository
             ],
   bootstrap: [AppComponent]
 })

@@ -1,11 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BASE_URL } from '../../rest-api/user-rest-data-source.service';
+import { AUTH_URL, UserRestDataSourceService } from '../../rest-api/user-rest-data-source.service';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { TokenService } from './token.service';
+import { StorageTokenService } from './storage-token.service';
 import { LogService } from './log.service';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
 export class AuthService {
@@ -24,29 +25,27 @@ export class AuthService {
   private header() {
 
     let authorization: string = 'Basic '+ btoa('client:secret');
-    console.log(authorization);
       return new HttpHeaders()
             .set('Authorization', authorization)
-            .set("Access-Control-Allow-Origin", "*")
-            .set("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
-            .set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
          }
 
-  constructor(private _http: HttpClient, @Inject(BASE_URL) _baseURL: string, private tokenService: TokenService, private logservice: LogService) { 
+  constructor(private _http: HttpClient, @Inject(AUTH_URL) _baseURL: string, private localStorageService: LocalStorageService, private logservice: LogService) { 
                        this.baseURL = _baseURL;
                        this.logservice.logDebugMessage(String('AuthService constructor: '));
                   }               
   
-  loginUser(user: string, pass: string): Observable<Boolean> {
+  loginUser(user: string, pass: string): Observable<string> {
     this.logservice.logDebugMessage(String('AuthService loginUser() '));
     return this._http.post(`${this.baseURL}/oauth/token`,{},{'headers': this.header() ,'params' : this.param(user,pass) }).pipe(
 
               map( (response: any) => {
-                      this.tokenService.setToken(response.access_token);
                       const decodedToken = this.helper.decodeToken(response.access_token);
-                      console.log(decodedToken);
+                      this.localStorageService.setToken(response.access_token);
+                      this.localStorageService.setToken(response.access_token);
                       localStorage.setItem('token',response.access_token);
-                           return true;
+                      
+
+                           return decodedToken.user_name;
                   }
                 )
             );

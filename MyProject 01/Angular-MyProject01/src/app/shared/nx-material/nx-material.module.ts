@@ -7,7 +7,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatNativeDateModule,
     MatDatepickerModule,  
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    MatStepperModule,
   ],
   exports: [
     CommonModule,
@@ -31,7 +33,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatNativeDateModule,
     MatDatepickerModule,  
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    MatStepperModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

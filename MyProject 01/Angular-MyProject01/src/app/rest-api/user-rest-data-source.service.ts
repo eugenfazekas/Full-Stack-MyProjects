@@ -1,37 +1,50 @@
 import { Injectable,  Inject, InjectionToken } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TokenService } from '../shared/services/token.service'; 
+import { StorageTokenService } from '../shared/services/storage-token.service'; 
 import { LogService } from '../shared/services/log.service';
 import { UserAccount } from '../model/user.account';
-import { Text } from '@angular/compiler/src/i18n/i18n_ast';
+import { UserModel } from '../model/user.model';
 
-export const BASE_URL = new InjectionToken<string>('BaseUrl');
+export const AUTH_URL = new InjectionToken<string>('AuthUrl');
+export const RESOURCE_URL = new InjectionToken<string>('ResourceUrl');
 
 @Injectable()
 export class UserRestDataSourceService {
 
-  private baseURL: string ;
+  private _authURL: string ;
+  private _resourceURL: string ;
 
    param1(email: string) { 
      return new HttpParams()
             .set('email', email);
    }
 
-  constructor(private tokenService: TokenService, private _http: HttpClient, @Inject(BASE_URL) _baseURL: string, private logservice: LogService) {
+   param2(id: string) { 
+    return new HttpParams()
+           .set('id', id);
+  }
+   
+
+  constructor(private tokenService: StorageTokenService, private _http: HttpClient, @Inject(AUTH_URL) _authURL: string, @Inject(RESOURCE_URL) _resourceURL: string, private logservice: LogService) {
            this.logservice.logDebugMessage(String('UserRestDataSourceService constructor: '));
-           this.baseURL = _baseURL; 
+           this._authURL = _authURL; 
+           this._resourceURL = _resourceURL; 
    }
 
   saveUser(user: UserAccount): Observable<String> {
     this.logservice.logDebugMessage(String('UserRestDataSourceService saveUser() '));
-    return this._http.post(`${this.baseURL}/user/registerUser`,user,{ responseType: 'text'});
+    return this._http.post(`${this._authURL}/user/registerUser`,user,{ responseType: 'text'});
   }
 
   userExistCheck(email: string): Observable<boolean>{
     this.logservice.logDebugMessage(String('UserRestDataSourceService userExistCheck() '));
-    return this._http.post<boolean>(`${this.baseURL}/user/userExistCheck`, this.param1(email));
+    return this._http.post<boolean>(`${this._authURL}/user/userExistCheck`, this.param1(email));
   }
 
+  getUser(id: string):Observable<UserModel> {
+    this.logservice.logDebugMessage(String('UserRestDataSourceService getUser() '));
+    return this._http.post<UserModel>(`${this._resourceURL}/user/findUserById`,{},{'headers': this.tokenService.getOptions(), 'params' : this.param2(id)});
+  }
 }
  

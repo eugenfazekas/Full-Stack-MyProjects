@@ -3,57 +3,34 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { LogService } from './log.service';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
-export class TokenService {
+export class StorageTokenService {
 
   private jwt = new JwtHelperService();
-  private auth_token: string;
   private subject = new Subject<any>();
   
-  constructor( private logservice: LogService ) { 
+  constructor( private logservice: LogService , private storageService: LocalStorageService ) { 
     this.logservice.logDebugMessage(String('TokenService constructor: '));
-    this.getLocalToken();
-   }
-
-  getLocalToken() {
-    this.logservice.logDebugMessage(String('TokenService getLocalToken()'));
-    this.auth_token = localStorage.getItem('token') != null ? localStorage.getItem('token') : '';   
-       return ;
    }
 
    getToken() {
     this.logservice.logDebugMessage(String('TokenService getToken()'));
-     return this.auth_token;
-   }
-
-   setToken(token: string) {
-    this.logservice.logDebugMessage(String('TokenService setToken()'));
-     this.auth_token = token;
+    return this.storageService.getToken()
    }
 
   getDecodedToken() {
     this.logservice.logDebugMessage(String('TokenService getDecodedToken()'));
-    let decodedToken = this.jwt.decodeToken(this.auth_token);
+    let decodedToken = this.jwt.decodeToken(this.storageService.getToken());
         return decodedToken != null ? decodedToken : '' ;
-   }
-
-   getFullname() {
-    this.logservice.logDebugMessage(String('TokenService getFullname()'));
-    let decodedToken = this.jwt.decodeToken(this.auth_token);
-    return decodedToken != null ? decodedToken.fullName : '' ;
-   }
-
-   getEmail() {
-    this.logservice.logDebugMessage(String('TokenService getEmail()'));
-    let decodedToken = this.jwt.decodeToken(this.auth_token);
-    return decodedToken != null ? decodedToken.sub : '' ;
    }
 
   getOptions() {
     this.logservice.logDebugMessage(String('TokenService getOptions()'));
+    console.log('get options token', `Bearer ${this.storageService.getToken()}`);
     return new HttpHeaders()
-         .set('Authorization', `Bearer ${this.auth_token}`)
+         .set('Authorization', `Bearer ${this.storageService.getToken()}`)
          }
 
   getAdmin(): boolean {
@@ -84,7 +61,7 @@ export class TokenService {
       }
    getFirstName() {
     this.logservice.logDebugMessage(String('TokenService getFirstName()'));
-    let decodedToken = this.jwt.decodeToken(this.auth_token);
+    let decodedToken = this.jwt.decodeToken(this.storageService.getToken());
     let name = decodedToken != null ? decodedToken.fullName : '' ;
     let fullName: string[];
     fullName = decodedToken != '' ? name.split(" ") : [];

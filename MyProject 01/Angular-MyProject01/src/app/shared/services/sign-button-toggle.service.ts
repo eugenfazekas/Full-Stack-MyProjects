@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
-import { TokenService } from './token.service';
+import { StorageTokenService } from './storage-token.service';
 import { LogService } from './log.service';
+import { LocalStorageService } from './local-storage.service';
 
 
 @Injectable()
 export class SignButtonToggleService {
 
-  constructor(private tokenService: TokenService, private logservice: LogService) {
+  constructor(private localStorageService: LocalStorageService, private storageTokenService :StorageTokenService, private logservice: LogService) {
     this.logservice.logDebugMessage(String('SignButtonToggleService constructor: '));
-    this.token = tokenService.getDecodedToken();
+   // this.token = tokenService.getDecodedToken();
      this.name = this.token ? `Welcome ${this.token.fullName}` : '';
   }
 
@@ -20,15 +21,15 @@ export class SignButtonToggleService {
 
   setFullname() {
     this.logservice.logDebugMessage(String('SignButtonToggleService setFullname() '));
-    this.token = this.tokenService.getDecodedToken();
+    this.token = this.storageTokenService.getDecodedToken();
     this.name = `Welcome ${this.token.fullName}`;
-    this.tokenService.adminVerify();
+    this.storageTokenService.adminVerify();
   }
 
   removeToken() {
     this.logservice.logDebugMessage(String('SignButtonToggleService removeToken() '));
     localStorage.removeItem('token');
-    this.tokenService.setToken('');
+    this.localStorageService.setToken('');
   }
 
   setLoggedIn(status: boolean){

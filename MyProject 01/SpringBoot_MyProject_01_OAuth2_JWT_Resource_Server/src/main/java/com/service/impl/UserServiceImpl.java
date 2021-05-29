@@ -74,6 +74,12 @@ public class UserServiceImpl implements UserService {
 		}
 	    log.debug("Directory is created!");		
 	}
+	
+
+	@Override
+	public User findById(String id) {
+		return userRepository.findUserById(id);
+	}
 
 	@Override
 	public User updateUser(User user) {	
