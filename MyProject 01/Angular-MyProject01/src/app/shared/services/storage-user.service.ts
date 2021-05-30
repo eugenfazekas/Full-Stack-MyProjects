@@ -11,4 +11,8 @@ export class StorageUserService {
      return this.storageService.getId();
    }
 
+   getFullname() {
+     let fullName = this.storageService.getUser() != null ? this.storageService.getUser().fullName : '';
+     return fullName;
+   }
 }

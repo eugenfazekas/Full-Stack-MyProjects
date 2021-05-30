@@ -4,6 +4,9 @@ import { UserModel } from 'src/app/model/user.model';
 import { StorageUserService } from 'src/app/shared/services/storage-user.service';
 import { LogService } from 'src/app/shared/services/log.service';
 import { UserRepository } from 'src/app/repository/user-repository';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { Router } from '@angular/router';
+import { SignButtonToggleService } from 'src/app/shared/services/sign-button-toggle.service';
 
 @Component({
   selector: 'app-first-steps',
@@ -12,16 +15,17 @@ import { UserRepository } from 'src/app/repository/user-repository';
 })
 export class FirstStepsComponent implements OnInit {
 
-  userModel : UserModel = new UserModel();
+  userModel: UserModel = new UserModel();
   editProfile: boolean = false;
   formSubmitted: boolean = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isOptional = false;
 
-  constructor(private _formBuilder: FormBuilder, private storageUserService: StorageUserService ,
-    private logservice: LogService, private userRepository: UserRepository) {}
+  constructor(private _formBuilder: FormBuilder, private logservice: LogService, private signToogleService: SignButtonToggleService,
+        private userRepository: UserRepository, private router: Router) {
 
+  }
   ngOnInit() {
 
     this.firstFormGroup = this._formBuilder.group({
@@ -37,18 +41,22 @@ export class FirstStepsComponent implements OnInit {
     });
   }
 
+  getUser() {
+    return this.userRepository.getUser();
+  }
 
-
-  submitForm() {
-    this.userModel.id = this.storageUserService.getId()  ; 
+  submitForm() { 
+      this.userModel.address = { country : '' };
       Object.keys(this.firstFormGroup.controls).forEach(c => this.userModel[c] = this.firstFormGroup.controls[c].value);
       Object.keys(this.secondFormGroup.controls).forEach(c => this.userModel.address[c] = this.secondFormGroup.controls[c].value);
-      if(this.firstFormGroup.valid && this.firstFormGroup.valid){
-        this.logservice.logDebugMessage(String('EditUserDetailsComponent submitForm() '));
-        this.userRepository.updateUser(this.userModel);
-        this.formSubmitted = true;
-        this.editProfile = false;
-        localStorage.setItem('user', JSON.stringify(this.userModel));
+      if(this.firstFormGroup.valid && this.secondFormGroup.valid){
+          this.logservice.logDebugMessage(String('FirstStepsComponent submitForm()'));
+          this.userRepository.updateUser(this.userModel);
+          this.formSubmitted = true;
+          this.editProfile = false; 
+          this.signToogleService.setFullname();
+          this.router.navigateByUrl('home');
+          console.log(this.userModel);    
       }
-  }
+   }
 }

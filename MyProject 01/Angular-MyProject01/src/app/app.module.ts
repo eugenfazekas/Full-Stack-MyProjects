@@ -23,6 +23,7 @@ import { HomeComponent } from './components/auth/home/home.component';
 import { FirstStepsComponent } from './components/auth/first-steps/first-steps.component';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { UserRepository } from './repository/user-repository';
+import { StorageUserService } from './shared/services/storage-user.service';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { UserRepository } from './repository/user-repository';
               } 
             },
             LocalStorageService,
-            UserRepository
+            UserRepository,
+            StorageUserService
             ],
   bootstrap: [AppComponent]
 })

@@ -15,9 +15,11 @@ public interface UserService {
 	
 	public String getDate();
 	
-	public void createUserDirPath(String userId);
+	public String getUsernameFromSecurityContext();
 	
-	public User findById(String id);
+	public void createUserDirPath(String userId);
+		
+	public User getUser();
 
 	public User updateUser(User user);	
 	

@@ -19,13 +19,7 @@ export class UserRestDataSourceService {
      return new HttpParams()
             .set('email', email);
    }
-
-   param2(id: string) { 
-    return new HttpParams()
-           .set('id', id);
-  }
    
-
   constructor(private tokenService: StorageTokenService, private _http: HttpClient, @Inject(AUTH_URL) _authURL: string, @Inject(RESOURCE_URL) _resourceURL: string, private logservice: LogService) {
            this.logservice.logDebugMessage(String('UserRestDataSourceService constructor: '));
            this._authURL = _authURL; 
@@ -42,9 +36,14 @@ export class UserRestDataSourceService {
     return this._http.post<boolean>(`${this._authURL}/user/userExistCheck`, this.param1(email));
   }
 
-  getUser(id: string):Observable<UserModel> {
+  getUser():Observable<UserModel> {
     this.logservice.logDebugMessage(String('UserRestDataSourceService getUser() '));
-    return this._http.post<UserModel>(`${this._resourceURL}/user/findUserById`,{},{'headers': this.tokenService.getOptions(), 'params' : this.param2(id)});
+    return this._http.post<UserModel>(`${this._resourceURL}/user/getUser`,{},{'headers': this.tokenService.getOptions()});
+  }
+
+  updateUser(user: UserModel) {
+    this.logservice.logDebugMessage(String('UserRestDataSourceService updateUser() '));
+    return this._http.post<UserModel>(`${this._resourceURL}/user/updateUser`, user,{'headers': this.tokenService.getOptions()});
   }
 }
  

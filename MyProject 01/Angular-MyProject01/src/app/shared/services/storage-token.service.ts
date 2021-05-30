@@ -28,7 +28,6 @@ export class StorageTokenService {
 
   getOptions() {
     this.logservice.logDebugMessage(String('TokenService getOptions()'));
-    console.log('get options token', `Bearer ${this.storageService.getToken()}`);
     return new HttpHeaders()
          .set('Authorization', `Bearer ${this.storageService.getToken()}`)
          }
@@ -59,6 +58,7 @@ export class StorageTokenService {
             }
           }
       }
+      
    getFirstName() {
     this.logservice.logDebugMessage(String('TokenService getFirstName()'));
     let decodedToken = this.jwt.decodeToken(this.storageService.getToken());

@@ -1,7 +1,5 @@
-<button mat-raised-button (click)="isOptional = !isOptional">
-    {{!isOptional ? 'Enable optional steps' : 'Disable optional steps'}}
-  </button>
-  
+<div class="m-4">
+  <div class="m-4 w-75">
   <mat-horizontal-stepper linear #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
@@ -20,7 +18,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
+    <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Fill out your address</ng-template>
 
@@ -64,10 +62,12 @@
       <p>You are now done.</p>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-raised-button color="accent" class="ml-4 mt-2" 
-                    [disabled]="formSubmitted || editUserDetailsForm.invalid"
-                    [class.btn-secondary]="formSubmitted && editUserDetailsForm.invalid"
+        <button mat-raised-button color="accent" class="ml-4 mt-2" (click)="submitForm()"
+                    [disabled]="formSubmitted || firstFormGroup.invalid || secondFormGroup.invalid"
+                    [class.btn-secondary]="formSubmitted && (firstFormGroup.invalid || secondFormGroup.invalid)" 
                     >Update Profile</button>
       </div>
     </mat-step>
-  </mat-horizontal-stepper>
+    </mat-horizontal-stepper>
+  </div>
+</div>

@@ -41,7 +41,7 @@ public class UserRepositoryImpl implements UserRepository{
 			    														JsonSchemaProperty.string("country").possibleValues("Romania","Hungary","UK"),
 			    														JsonSchemaProperty.string("city").minLength(3).maxLength(20), 
 			    														JsonSchemaProperty.string("street").minLength(3).maxLength(25), 
-			    														JsonSchemaProperty.string("number").minLength(3).maxLength(1) 
+			    														JsonSchemaProperty.string("number").minLength(1).maxLength(5) 
 			    									),
 			    		JsonSchemaProperty.array("profilePhotos").items(JsonSchemaProperty.string("items")),
 			    		JsonSchemaProperty.array("articles").items(JsonSchemaProperty.string("items")))
@@ -103,6 +103,7 @@ public class UserRepositoryImpl implements UserRepository{
 			update.set("fullName", user.getFullName());
 			update.set("address", user.getAddress());
 			mongoTemplate.updateMulti(query, update, User.class, USERS_COLLECTION);
+			log.debug("Updated user " + user.toString());
 		return user;
 	}
 

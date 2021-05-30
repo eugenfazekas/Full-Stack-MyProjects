@@ -32,8 +32,8 @@ export class LoginComponent {
             res =>  { this.signToogleService.setLoggedIn(true);
                       this.signToogleService.setFullname();
                       console.log('login token',res)
-                      this.userRestDataSourceService.getUser(res).subscribe(
-                              res => {return  res != null ?  
+                      this.userRestDataSourceService.getUser().subscribe(
+                              res => {console.log('res',res) ;return  res != null ?  
                                               res.firstName  == null ?  this.router.navigateByUrl('firstSteps') : this.router.navigateByUrl('') // return this
                                                                                                 :             
                                                                                                           this.router.navigateByUrl('login') } // or return this

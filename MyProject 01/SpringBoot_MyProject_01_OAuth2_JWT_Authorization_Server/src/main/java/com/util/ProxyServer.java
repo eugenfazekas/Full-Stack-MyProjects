@@ -32,6 +32,6 @@ public class ProxyServer {
 		
 		var response = rest.postForEntity(url, request, Void.class);
 		
-		log.debug("Resource Server Status = "+response.getStatusCode().toString()+ "with Id " +id);
+		log.debug("Resource Server Status = "+response.getStatusCode().toString()+ " with Id " +id);
 	}
 }

@@ -15,6 +15,9 @@ import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,6 +65,13 @@ public class UserServiceImpl implements UserService {
 	    
 		return simpleDateFormat.format(new Date());
 	}
+	
+	@Override
+	public String getUsernameFromSecurityContext() {
+		SecurityContext context = SecurityContextHolder.getContext();
+    	Authentication a = context.getAuthentication();
+		return a.getName();
+	}
 
 	@Override
 	public void createUserDirPath(String userId) {
@@ -75,16 +85,25 @@ public class UserServiceImpl implements UserService {
 	    log.debug("Directory is created!");		
 	}
 	
-
-	@Override
-	public User findById(String id) {
+	private User findById(String id) {
 		return userRepository.findUserById(id);
+	}
+	
+	@Override
+	public User getUser() {
+		return findById(getUsernameFromSecurityContext());
 	}
 
 	@Override
 	public User updateUser(User user) {	
-			user.setFullName();
-		return userRepository.updateUser(user);
+		
+	  User userForUpdate = findById(getUsernameFromSecurityContext());  
+		   userForUpdate.setFirstName(user.getFirstName());
+		   userForUpdate.setLastName(user.getLastName());
+		   userForUpdate.setFullName();
+		   userForUpdate.setAddress(user.getAddress());
+		   log.debug(userForUpdate.toString());
+		return userRepository.updateUser(userForUpdate);
 	}
 
 	@Override
@@ -130,4 +149,6 @@ public class UserServiceImpl implements UserService {
 		
 		userRepository.setActiveProfilePhoto(userId, photoName);
 	}
+
+	
 }

@@ -9,6 +9,7 @@ import { FirstStepsComponent } from './components/auth/first-steps/first-steps.c
 const routes: Routes = [
         { path: "", component: HomeComponent , canActivate: [AuthGuard] },
         { path: "firstSteps", component: FirstStepsComponent , canActivate: [AuthGuard] },
+        { path: "home", component: HomeComponent , canActivate: [AuthGuard] },
         { path: "login", component: LoginComponent },
         { path: "registration", component: RegistrationComponent },
       ]

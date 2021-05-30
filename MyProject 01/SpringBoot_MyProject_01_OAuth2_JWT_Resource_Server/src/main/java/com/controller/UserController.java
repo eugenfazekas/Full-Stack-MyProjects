@@ -1,6 +1,11 @@
 package com.controller;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +34,13 @@ public class UserController {
 		return user.getId().toString();
 	}
 	
-	@RequestMapping(value = "findUserById", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public User findUserById(@RequestParam String id) {
-		return userService.findById(id);
+	@RequestMapping(value = "getUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public User findUserById() {		
+    	return userService.getUser();
+	}
+	
+	@RequestMapping(value = "updateUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public User updateUser(@RequestBody User user) {		
+    	return userService.updateUser(user);
 	}
 }

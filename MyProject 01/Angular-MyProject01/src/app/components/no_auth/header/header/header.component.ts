@@ -15,7 +15,7 @@ export class HeaderComponent {
 
   subscription: Subscription;
   admin: boolean;
-  constructor(private router: Router, public signToggleService: SignButtonToggleService,private tokenService: StorageTokenService, private logservice: LogService ) {
+  constructor(private router: Router, public signToggleService: SignButtonToggleService, private tokenService: StorageTokenService, private logservice: LogService ) {
     this.admin = tokenService.getAdmin();
     this.subscription = this.tokenService.getAdminObs().subscribe(res => this.admin = res );
     this.logservice.logDebugMessage(String('HeaderComponent constructor: admin = '+ this.admin));
