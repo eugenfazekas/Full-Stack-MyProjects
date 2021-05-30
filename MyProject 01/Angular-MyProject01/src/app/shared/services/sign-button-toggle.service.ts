@@ -13,8 +13,7 @@ export class SignButtonToggleService {
   constructor(private localStorageService: LocalStorageService, private storageTokenService :StorageTokenService, 
     private logservice: LogService , private storageUserService : StorageUserService) {
     this.logservice.logDebugMessage(String('SignButtonToggleService constructor: '));
-   // this.token = tokenService.getDecodedToken();
-     this.name = this.storageTokenService.getToken() != null ? `Welcome ${this.storageUserService.getFullname()}` : '';
+     this.name = this.storageUserService.getFullname() != null ? `Welcome ${this.storageUserService.getFullname()}` : '';
   }
 
   public name; 

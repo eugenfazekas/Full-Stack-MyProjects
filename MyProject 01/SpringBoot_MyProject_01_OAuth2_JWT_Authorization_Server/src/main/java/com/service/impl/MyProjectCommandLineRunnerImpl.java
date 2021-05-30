@@ -12,16 +12,22 @@ import com.repository.UserRepository;
 import com.service.AccountKeyService;
 import com.service.MyProjectCommandLineRunnner;
 import com.service.UserService;
+import com.util.ProxyServer;
 
 @Component
 public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProjectCommandLineRunnner{
 	
 	private UserRepository userRepository;
 	private AccountKeyService accountKeyService;
+	private ProxyServer proxyServer;
 
-	public MyProjectCommandLineRunnerImpl(UserRepository userRepository, AccountKeyService accountKeyService) {
+	
+
+	public MyProjectCommandLineRunnerImpl(UserRepository userRepository, AccountKeyService accountKeyService,
+			ProxyServer proxyServer) {
 		this.userRepository = userRepository;
 		this.accountKeyService = accountKeyService;
+		this.proxyServer = proxyServer;
 	}
 
 	public void run(String... args) throws Exception {
@@ -49,6 +55,16 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	    user.setPassword(new BCryptPasswordEncoder().encode("myPassword"));
 	    user.setActive(true);
 		userRepository.registerUser(user, "user");
+		proxyServer.sendNewUserId(userRepository.findByEmail(user.getEmail()).getId());  
+		
+		User user2 = new User();
+		UUID uuid2 = UUID.randomUUID();	
+		user2.setId(uuid2.toString());
+		user2.setEmail("admin@fa.hu");
+	    user2.setPassword(new BCryptPasswordEncoder().encode("myAdmin"));
+	    user2.setActive(true);
+		userRepository.registerUser(user2, "user admin");
+		proxyServer.sendNewUserId(userRepository.findByEmail(user2.getEmail()).getId()); 
 	}
 
 	@Override

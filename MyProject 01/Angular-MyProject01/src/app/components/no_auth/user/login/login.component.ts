@@ -31,10 +31,9 @@ export class LoginComponent {
       this.authService.loginUser(this.userLoginFormModel.email.value ,this.userLoginFormModel.password.value).subscribe(
             res =>  { this.signToogleService.setLoggedIn(true);
                       this.signToogleService.setFullname();
-                      console.log('login token',res)
                       this.userRestDataSourceService.getUser().subscribe(
-                              res => {console.log('res',res) ;return  res != null ?  
-                                              res.firstName  == null ?  this.router.navigateByUrl('firstSteps') : this.router.navigateByUrl('') // return this
+                              res => {;return  res != null ?  
+                                                res.firstName  == null ?  this.router.navigateByUrl('firstSteps') : this.router.navigateByUrl('') // return this
                                                                                                 :             
                                                                                                           this.router.navigateByUrl('login') } // or return this
                       )

@@ -22,7 +22,7 @@ export class FirstStepsComponent implements OnInit {
   secondFormGroup: FormGroup;
   isOptional = false;
 
-  constructor(private _formBuilder: FormBuilder, private logservice: LogService, private signToogleService: SignButtonToggleService,
+  constructor(private _formBuilder: FormBuilder, private logservice: LogService, 
         private userRepository: UserRepository, private router: Router) {
 
   }
@@ -54,9 +54,7 @@ export class FirstStepsComponent implements OnInit {
           this.userRepository.updateUser(this.userModel);
           this.formSubmitted = true;
           this.editProfile = false; 
-          this.signToogleService.setFullname();
-          this.router.navigateByUrl('home');
-          console.log(this.userModel);    
+          this.router.navigateByUrl('home');  
       }
    }
 }

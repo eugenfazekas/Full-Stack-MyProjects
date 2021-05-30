@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { UserModel } from '../model/user.model';
 import { UserRestDataSourceService } from '../rest-api/user-rest-data-source.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
+import { SignButtonToggleService } from '../shared/services/sign-button-toggle.service';
 
 @Injectable()
 export class UserRepository {
 
   private user: UserModel = new UserModel();
 
-  constructor(private userRestDataSource: UserRestDataSourceService, private localStorageService: LocalStorageService) {
+  constructor(private userRestDataSource: UserRestDataSourceService, private localStorageService: LocalStorageService,
+    private signToogleService: SignButtonToggleService) {
       userRestDataSource.getUser().subscribe(
         res => this.user = res ,
         err => console.log(err)
@@ -21,7 +23,11 @@ export class UserRepository {
 
    updateUser(user: UserModel) {
     this.userRestDataSource.updateUser(user).subscribe(
-      res => { this.user = res, this.localStorageService.setUserStorage(user)},
+      res => {
+         this.user = res; 
+         this.localStorageService.setUserStorage(user);
+         this.signToogleService.setFullname();
+        },
       err =>console.log(err)
     )
    }
