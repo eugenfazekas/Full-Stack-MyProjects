@@ -1,15 +1,9 @@
 package com.controller;
 
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.model.ProxyUser;
@@ -29,13 +23,12 @@ public class UserController {
 	
 	@RequestMapping(value = "createUserResource", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String createUser(@RequestBody ProxyUser user) {
-		userService.createUser(user);
-		
+		userService.createUser(user);	
 		return user.getId().toString();
 	}
 	
 	@RequestMapping(value = "getUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public User findUserById() {		
+	public User getUser() {		
     	return userService.getUser();
 	}
 	

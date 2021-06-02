@@ -44,6 +44,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public void configure (HttpSecurity http) throws Exception {
     	http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     	http.authorizeRequests().mvcMatchers("user/createUserResource").permitAll()
+    							.antMatchers("/user/**").permitAll()
     		.and().authorizeRequests().anyRequest().authenticated();
 		http.cors().and();
     }

@@ -4,9 +4,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AUTH_URL, UserRestDataSourceService } from '../../rest-api/user-rest-data-source.service';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { StorageTokenService } from './storage-token.service';
 import { LogService } from './log.service';
-import { LocalStorageService } from './local-storage.service';
+import { LoggedUserService } from './logged-user.service';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +28,7 @@ export class AuthService {
             .set('Authorization', authorization)
          }
 
-  constructor(private _http: HttpClient, @Inject(AUTH_URL) _baseURL: string, private localStorageService: LocalStorageService, private logservice: LogService) { 
+  constructor(private _http: HttpClient, @Inject(AUTH_URL) _baseURL: string, private loggedUserService: LoggedUserService, private logservice: LogService) { 
                        this.baseURL = _baseURL;
                        this.logservice.logDebugMessage(String('AuthService constructor: '));
                   }               
@@ -40,10 +39,9 @@ export class AuthService {
 
               map( (response: any) => {
                       const decodedToken = this.helper.decodeToken(response.access_token);
-                      this.localStorageService.setToken(response.access_token);
-                      this.localStorageService.setToken(response.access_token);
-                      localStorage.setItem('token',response.access_token);
-                    
+                      this.loggedUserService.setToken(response.access_token);
+                      this.loggedUserService.setId(decodedToken.user_name);  
+                      this.loggedUserService.adminCheck(response.access_token);  
                            return decodedToken.user_name;
                   }
                 )

@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -126,16 +125,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String deleteProfilePhoto(String userId, String imageName, boolean imageNameActive) {
+	public String deleteProfilePhoto(String imageName, boolean imageNameActive) {
 
-		userRepository.deleteProfilePhoto(userId, imageName);
+		userRepository.deleteProfilePhoto(getUsernameFromSecurityContext(), imageName);
 		
 		if(imageNameActive == true) {
-			userRepository.setActiveProfilePhoto(userId, "");
+			userRepository.setActiveProfilePhoto(getUsernameFromSecurityContext(), "");
 		}
 		
 		String response = null;
-		 File myObj = new File("src/main/resources/static/user/" + userId + "/" + imageName + ".png"); 
+		 File myObj = new File("src/main/resources/static/user/" + getUsernameFromSecurityContext() + "/" + imageName + ".png"); 
 		    if (myObj.delete()) { 
 		    	response = "Deleted the file: " + myObj.getName();
 		    } else {
@@ -145,9 +144,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void setActiveProfilePhoto(String userId, String photoName) {
+	public void setActiveProfilePhoto( String photoName) {
 		
-		userRepository.setActiveProfilePhoto(userId, photoName);
+		userRepository.setActiveProfilePhoto(getUsernameFromSecurityContext(), photoName);
 	}
 
 	

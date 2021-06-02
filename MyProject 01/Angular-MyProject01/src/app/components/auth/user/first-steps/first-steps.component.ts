@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from 'src/app/model/user.model';
-import { StorageUserService } from 'src/app/shared/services/storage-user.service';
 import { LogService } from 'src/app/shared/services/log.service';
 import { UserRepository } from 'src/app/repository/user-repository';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+
 import { Router } from '@angular/router';
-import { SignButtonToggleService } from 'src/app/shared/services/sign-button-toggle.service';
+
 
 @Component({
   selector: 'app-first-steps',
@@ -34,7 +33,7 @@ export class FirstStepsComponent implements OnInit {
     });
 
     this.secondFormGroup = this._formBuilder.group({
-      country: ['',[Validators.required, Validators.minLength(3),Validators.maxLength(30)]],
+      country: ['',[Validators.required, Validators.minLength(2),Validators.maxLength(30)]],
       city: ['',[Validators.required, Validators.minLength(3),Validators.maxLength(30)]],
       street: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(30)]],
       number: ['', [Validators.required, Validators.minLength(1),Validators.maxLength(30)]]

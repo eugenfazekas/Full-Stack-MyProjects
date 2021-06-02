@@ -25,7 +25,7 @@ public interface UserService {
 	
 	public void uploadProfilePhoto(MultipartFile fileInput);
 	
-	public String deleteProfilePhoto(String userId, String photoName, boolean imageNameActive);
+	public String deleteProfilePhoto(String photoName, boolean imageNameActive);
 	
-	public void setActiveProfilePhoto(String userId, String photoName);
+	public void setActiveProfilePhoto(String photoName);
 }

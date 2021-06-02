@@ -13,17 +13,28 @@ import { UserRestDataSourceService, AUTH_URL, RESOURCE_URL } from './rest-api/us
 import { NxRouting } from './app.routing';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard} from './shared/guards/auth-guard';
-import { SignButtonToggleService } from './shared/services/sign-button-toggle.service';
-import { StorageTokenService } from './shared/services/storage-token.service';
 import { NxMaterialModule } from './shared/nx-material/nx-material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { LogLevel, LogService, } from './shared/services/log.service';
-import { HomeComponent } from './components/auth/home/home.component';
-import { FirstStepsComponent } from './components/auth/first-steps/first-steps.component';
-import { LocalStorageService } from './shared/services/local-storage.service';
+import { HomeComponent } from './components/auth/user/home/home.component';
+import { FirstStepsComponent } from './components/auth/user/first-steps/first-steps.component';
 import { UserRepository } from './repository/user-repository';
-import { StorageUserService } from './shared/services/storage-user.service';
+import { ArticleRestDataSourceService } from './rest-api/article-rest-data-source.service';
+import { CategoriesRestDataSourceService } from './rest-api/categories-rest-data-source.service';
+import { CategoriesRepository } from './repository/categories-repository';
+import { CategoriesComponent } from './components/auth/admin/categories/categories.component';
+import { ArticlesRepository } from './repository/articles-repository';
+import { NxCategoryFilterPipe } from './shared/pipes/nx-article-category-filter.pipe';
+import { NxAuthorFilterPipe } from './shared/pipes/nx-article-author-filter.pipe';
+import { NxSearchFilterPipe } from './shared/pipes/nx-article-search-filter.pipe';
+import { NxPublishedDateFilterPipe } from './shared/pipes/nx-article-published-date-filter.pipe';
+import { EditUserDetailsComponent } from './components/auth/user/edit-user-details/edit-user-details.component';
+import { NxPageFilterPipe } from './shared/pipes/nx-article-page-filter.pipe';
+import { ImageService } from './shared/services/image.service';
+import { ManageImagesComponent } from './components/auth/user/manage-images/manage-images.component';
+import { ArticlesComponent } from './components/auth/common/articles/articles.component';
+import { LoggedUserService } from './shared/services/logged-user.service';
 
 
 @NgModule({
@@ -32,7 +43,16 @@ import { StorageUserService } from './shared/services/storage-user.service';
     LoginComponent,
     RegistrationComponent,
     HeaderComponent,
+    ArticlesComponent,
     HomeComponent,
+    CategoriesComponent,
+    NxCategoryFilterPipe,
+    NxAuthorFilterPipe,
+    NxSearchFilterPipe,
+    NxPublishedDateFilterPipe,
+    NxPageFilterPipe,
+    EditUserDetailsComponent,
+    ManageImagesComponent,
     FirstStepsComponent
   ],
   imports: [
@@ -52,8 +72,11 @@ import { StorageUserService } from './shared/services/storage-user.service';
               { provide: RESOURCE_URL, useValue: 'http://localhost:8080'},
               AuthService,
               AuthGuard,
-              SignButtonToggleService,
-              StorageTokenService,
+              LoggedUserService,
+              ArticleRestDataSourceService,
+              ArticlesRepository,
+              CategoriesRestDataSourceService,
+              CategoriesRepository,
               { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
               { provide: LogLevel, useValue: LogLevel.INFO },
               { provide: LogService, 
@@ -64,9 +87,8 @@ import { StorageUserService } from './shared/services/storage-user.service';
                   return logger;
               } 
             },
-            LocalStorageService,
             UserRepository,
-            StorageUserService
+            ImageService
             ],
   bootstrap: [AppComponent]
 })

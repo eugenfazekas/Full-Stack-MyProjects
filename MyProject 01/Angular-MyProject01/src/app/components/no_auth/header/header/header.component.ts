@@ -1,9 +1,8 @@
 import { Component, OnInit, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignButtonToggleService } from 'src/app/shared/services/sign-button-toggle.service';
-import { StorageTokenService } from 'src/app/shared/services/storage-token.service';
 import { Subscription } from 'rxjs';
 import { LogService } from 'src/app/shared/services/log.service';
+import { LoggedUserService } from 'src/app/shared/services/logged-user.service';
 
 
 @Component({
@@ -15,12 +14,11 @@ export class HeaderComponent {
 
   subscription: Subscription;
   admin: boolean;
-  constructor(private router: Router, public signToggleService: SignButtonToggleService, private tokenService: StorageTokenService, private logservice: LogService ) {
-    this.admin = tokenService.getAdmin();
-    this.subscription = this.tokenService.getAdminObs().subscribe(res => this.admin = res );
+  constructor(private router: Router, public loggedUserService: LoggedUserService, private logservice: LogService ) {
     this.logservice.logDebugMessage(String('HeaderComponent constructor: admin = '+ this.admin));
    }
 
+   /*
   signOut() {
     this.logservice.logDebugMessage(String('HeaderComponent SignOut()'));
     this.signToggleService.removeToken();
@@ -29,5 +27,15 @@ export class HeaderComponent {
     this.signToggleService.name = '' ;
     window.location.reload();
    }
+*/
+
+signOut() {
+  this.logservice.logDebugMessage(String('HeaderComponent SignOut()'));
+  this.loggedUserService.removeTokens();
+  this.router.navigateByUrl('login');
+  this.loggedUserService.setLoggedIn(false);
+  this.loggedUserService.setFullName('user');
+  window.location.reload();
+ }
 
 }
