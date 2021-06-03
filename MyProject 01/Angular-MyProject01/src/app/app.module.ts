@@ -36,7 +36,6 @@ import { ManageImagesComponent } from './components/auth/user/manage-images/mana
 import { ArticlesComponent } from './components/auth/common/articles/articles.component';
 import { LoggedUserService } from './shared/services/logged-user.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -102,4 +102,20 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		final String  sql ="UPDATE users SET active = true  where email = ? ";
 		jdbc.update(sql, email);
 	}
+
+
+	@Override
+	public String updateUser(User user) {
+		
+		String update = "User not updated!";
+		try {
+			final String  sql ="UPDATE users SET email = ?, password = ? where id = ? ";
+			jdbc.update(sql, user.getEmail(), user.getPassword(), user.getId());
+			update = "User have been updated!";
+			log.debug("User have been Updated "+user.toString());
+		} catch(Exception e) {
+			log.debug("Update have not been executed "+ e);
+		}
+		return update;
+	}
 }

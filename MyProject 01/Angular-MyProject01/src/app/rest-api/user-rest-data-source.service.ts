@@ -72,5 +72,10 @@ export class UserRestDataSourceService {
     this.logservice.logDebugMessage(String('UserRestDataSourceService saveImage() '));
     return this._http.post(`${this._resourceURL}/userDetails/setActiveProfilePhoto`,{},{'headers': this.loggedUserService.getOptions(), 'params' : this.param2(imageName), responseType: 'text'});
   }
+
+  updateAccount(user: UserAccount): Observable<string> {
+    this.logservice.logDebugMessage(String('UserRestDataSourceService updateUser() '));
+    return this._http.post(`${this._authURL}/user/updateUserAccount`, user,{responseType: 'text'});
+  }
 }
  

@@ -7,11 +7,13 @@ import javax.mail.MessagingException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.model.AccountKey;
 import com.model.User;
+import com.model.UserUpdate;
 import com.repository.UserRepository;
 import com.service.AccountKeyService;
 import com.service.UserService;
@@ -28,7 +30,8 @@ public class UserServiceImpl implements UserService{
 	private EmailService emailService;
 	private ProxyServer proxyServer;
 	
-	
+	@Autowired 
+	private BCryptPasswordEncoder passwordEncoder;
 
 	public UserServiceImpl(AccountKeyService accountKeyService, UserRepository userRepository, EmailService emailService, ProxyServer proxyServer) {
 		this.accountKeyService = accountKeyService;
@@ -101,5 +104,20 @@ public class UserServiceImpl implements UserService{
 			log.debug("User with email: "+account.getEmail() +" "+activated);
 		}
 
+	}
+
+	@Override
+	public String updateUser(UserUpdate userUpdate) {
+		User user = userRepository.findById(userUpdate.getId());
+		if(passwordEncoder.matches(userUpdate.getOldPassword(), user.getPassword())) {
+			if(userUpdate.getPassword() != null) {
+				user.setPassword(passwordEncoder.encode(userUpdate.getPassword()));
+			}
+			if(userUpdate.getEmail() != null) {
+				user.setEmail(userUpdate.getEmail());
+			}
+			return userRepository.updateUser(user);
+		}
+		return null;
 	}
 }

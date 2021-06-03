@@ -63,7 +63,7 @@
 
     <p style="clear:both"></p>
 
-        <div class="border m-4 " *ngIf="userRepository.getUser().profilePhotos?.length > 0" >
+        <div class="border m-4 " *ngIf="userRepository.getUser()?.profilePhotos?.length > 0 " >
             <div *ngFor="let image of userRepository.getUser().profilePhotos; let i = index" class="float-left mt-3">
                 <img [src]= "imageService._url +'/user/' + id +'/' + image + '.png' " (click)="setImageIndex(i)" width="200" height="150">
                 <div class="clearfix"></div>

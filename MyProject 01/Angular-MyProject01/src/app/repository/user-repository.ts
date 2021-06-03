@@ -4,6 +4,8 @@ import { UserRestDataSourceService } from '../rest-api/user-rest-data-source.ser
 import { LogService } from '../shared/services/log.service';
 import { ImageService } from '../shared/services/image.service';
 import { LoggedUserService } from '../shared/services/logged-user.service';
+import { Observable } from 'rxjs';
+import { UserAccount } from '../model/user.account';
 
 @Injectable()
 export class UserRepository {
@@ -72,5 +74,9 @@ export class UserRepository {
       let profilePhoto = ( this.user.activeProfilePhoto != undefined && this.user.activeProfilePhoto != "" ) ? this.imageService._url +'/user/'+ this.user.id+'/' + this.user.activeProfilePhoto + '.png' :
       this.imageService._url + '/user/image/profile_placeholder.png';
         return profilePhoto;
-   } 
+   }
+   
+   updateAccount(user: UserAccount) : Observable<string> {
+    return this.userRestDataSource.updateAccount(user);
+   }
 }

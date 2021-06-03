@@ -45,6 +45,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     	http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     	http.authorizeRequests().mvcMatchers("user/createUserResource").permitAll()
     							.antMatchers("/user/**").permitAll()
+    							.antMatchers("/admin/**").hasAuthority("admin")
     		.and().authorizeRequests().anyRequest().authenticated();
 		http.cors().and();
     }

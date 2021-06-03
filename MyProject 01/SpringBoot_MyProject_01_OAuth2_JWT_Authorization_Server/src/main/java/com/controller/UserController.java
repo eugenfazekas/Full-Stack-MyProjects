@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.model.User;
+import com.model.UserUpdate;
 import com.service.UserService;
 
 @RestController
@@ -44,4 +45,8 @@ public class UserController {
 	
 		 return redirectView;
  }
+	@RequestMapping(value = "updateUserAccount", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String updateUserAccount(@RequestBody UserUpdate user) {
+		return userService.updateUser(user);
+	}
 }

@@ -1,6 +1,7 @@
 package com.service;
 
 import com.model.User;
+import com.model.UserUpdate;
 
 public interface UserService {
 	
@@ -17,4 +18,6 @@ public interface UserService {
 	boolean userExistCheck(String email);
 	
 	void userActivation(String key);
+	
+	String updateUser(UserUpdate user);
 }
