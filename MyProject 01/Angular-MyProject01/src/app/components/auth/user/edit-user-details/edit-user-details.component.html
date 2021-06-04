@@ -88,6 +88,7 @@
                 </form>
         </div>
     </div> 
+
     <div class="cBorder float-left ml-4 mt-2 p-4 col-5" style="background-color:#efefef" *ngIf="editAccount">
         <h2>Update Account</h2>
         <div class="m-2" >
@@ -118,6 +119,16 @@
                     [class.btn-secondary]="formSubmitted && formGroup.invalid" >Update
                 </button>
             </form>
+        </div>
+    </div>
+    
+    <div class=" border float-left ml-4 mt-2 p-4" *ngIf="responseToggle">
+        <div class="ml-4 mt-2">
+            <h3 class="text-success">User SuccesFull Updated!</h3>
+            <br>
+            <div class="d-flex justify-content-center">
+                 <button class="btn btn-primary " (click)="updateOk()" >Let's do Something else!</button>
+             </div>
         </div>
     </div>
   <p class="clearfix"></p>

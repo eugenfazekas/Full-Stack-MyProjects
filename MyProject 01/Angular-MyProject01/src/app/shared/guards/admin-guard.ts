@@ -5,29 +5,29 @@ import { LogService } from '../services/log.service';
 import { LoggedUserService } from '../services/logged-user.service';
 
 @Injectable()
-export class AuthGuard {
+export class AdminGuard {
   private jwt = new JwtHelperService();
 
   constructor(private loggedUserService: LoggedUserService, private router: Router,private logservice: LogService) { }
  
       canActivate(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): boolean {   
-            this.logservice.logDebugMessage(String('AuthGuard canActivate() ')); 
+            this.logservice.logDebugMessage(String('AdminGuard canActivate() ')); 
               let token = this.loggedUserService.getToken();
               let decodedToken = this.jwt.decodeToken(token);
-              let userAuth: boolean = false;
+              let userAdmin: boolean = false;
               if(token != '') {
                 for(let auth of decodedToken.authorities){
-                  if(auth == 'user'){
-                    userAuth = true;
+                  if(auth == 'admin'){
+                    userAdmin = true;
                   }
                 }
               }
-              if(!this.jwt.isTokenExpired(token) && userAuth ) {
+              if(!this.jwt.isTokenExpired(token) && userAdmin ) {
                 return true ;
           } else {
             token = '';
-          this.router.navigateByUrl('login');
+          this.router.navigateByUrl('home');
                 return false ;
       }
   }

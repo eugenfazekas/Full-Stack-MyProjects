@@ -50,12 +50,10 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	public User findById(String id) {
-
 		return userRepository.findById(id);
 	}
 
 	public User findByEmail(String email) {
-
 		return userRepository.findByEmail(email);
 	}
 
@@ -71,10 +69,8 @@ public class UserServiceImpl implements UserService{
 		try {
 			emailService.sendMessageen(user.getEmail(), "User! ", uuid.toString());
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -84,11 +80,10 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public boolean userExistCheck(String email) {
-	
 		boolean response = userRepository.userExistCheck(email)  > 0 ? true : false;
 		log.debug("UserUserExistCheck "+ email+ " exist = " + response);
 		
-		return response;
+			return response;
 	}
 
 	@Override

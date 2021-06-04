@@ -35,6 +35,7 @@ import { ImageService } from './shared/services/image.service';
 import { ManageImagesComponent } from './components/auth/user/manage-images/manage-images.component';
 import { ArticlesComponent } from './components/auth/common/articles/articles.component';
 import { LoggedUserService } from './shared/services/logged-user.service';
+import { AdminGuard } from './shared/guards/admin-guard';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { LoggedUserService } from './shared/services/logged-user.service';
               { provide: RESOURCE_URL, useValue: 'http://localhost:8080'},
               AuthService,
               AuthGuard,
+              AdminGuard,
               LoggedUserService,
               ArticleRestDataSourceService,
               ArticlesRepository,

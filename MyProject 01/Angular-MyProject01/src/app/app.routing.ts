@@ -8,6 +8,7 @@ import { ArticlesComponent } from './components/auth/common/articles/articles.co
 import { CategoriesComponent } from './components/auth/admin/categories/categories.component';
 import { ManageImagesComponent } from './components/auth/user/manage-images/manage-images.component';
 import { EditUserDetailsComponent } from './components/auth/user/edit-user-details/edit-user-details.component';
+import { AdminGuard } from './shared/guards/admin-guard';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
         { path: "login", component: LoginComponent },
         { path: "registration", component: RegistrationComponent },
         { path: "articles", component: ArticlesComponent ,canActivate: [AuthGuard] },
-        { path: "categories", component: CategoriesComponent, canActivate: [AuthGuard] },
+        { path: "categories", component: CategoriesComponent, canActivate: [AdminGuard] },
         { path: "editUserProfile", component: EditUserDetailsComponent, canActivate: [AuthGuard] },
         { path: "manageImages", component: ManageImagesComponent, canActivate: [AuthGuard] }
       ]

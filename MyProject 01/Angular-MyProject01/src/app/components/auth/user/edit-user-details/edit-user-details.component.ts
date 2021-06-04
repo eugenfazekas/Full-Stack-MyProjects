@@ -85,7 +85,10 @@ export class EditUserDetailsComponent {
           Object.keys(this.formGroup.controls).forEach(c => this.userAccount[c] = this.formGroup.controls[c].value);
           this.userAccount.id = this.userRepository.getUser().id;
           this.userRepository.updateAccount(this.userAccount).subscribe(
-            res => { this.responseText = res ; this.responseToggle = true; console.log(res) },
+            res => {
+               this.responseText = res ;
+                this.responseText == 'User have been updated!' ? this.responseToggle = true : null; 
+               },
             err => console.log(err)
           );
           this.formSubmitted = true;
@@ -101,5 +104,9 @@ export class EditUserDetailsComponent {
       else if (this.hide && formControll != 'email') {
           return 'password';
       }
+    }
+
+    updateOk() {
+      this.responseToggle = false;
     }
 }

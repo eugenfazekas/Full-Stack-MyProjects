@@ -39,19 +39,21 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		}
 	};
 	
+	@Override
 	public void createUsersTable() {
 		final String  sql = "CREATE TABLE IF NOT EXISTS USERS (id VARCHAR(36) PRIMARY KEY, email VARCHAR(64) NOT NULL, UNIQUE KEY UK_email (email), password VARCHAR(64) NOT NULL, active BOOLEAN, authorities VARCHAR(64) NOT NULL);";
 		jdbc.execute(sql);
 		log.debug("Users Table Created");
 	}
 
-
+	@Override
 	public void dropUsersTable() {
 		final String  sql = "DROP TABLE IF EXISTS USERS";
 		jdbc.execute(sql);	
 		log.debug("Users Table Deleted");
 	}
 
+	@Override
 	public User findById(String id) {
 		
 		User user = null;
@@ -63,7 +65,8 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			}
 		return user;
 	}
-
+	
+	@Override
 	public User findByEmail(String email) {
 		
 		User user = null;
@@ -77,6 +80,7 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		return user;
 	}
 
+	@Override
 	public String registerUser(User user,String authorities) {
 	
 		final String sql = "INSERT INTO USERS (id,email,password,active,authorities) VALUES (?,?,?,?,?)";
@@ -84,7 +88,6 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		log.debug("New User registered "+user.toString());
 		return "User Registered";
 	}
-
 
 	@Override
 	public Integer userExistCheck(String email) {
@@ -95,14 +98,12 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		return user;
 	}
 
-	
 	@Override
 	public void setActiveUser(String email) {
 	
 		final String  sql ="UPDATE users SET active = true  where email = ? ";
 		jdbc.update(sql, email);
 	}
-
 
 	@Override
 	public String updateUser(User user) {
@@ -112,7 +113,7 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			final String  sql ="UPDATE users SET email = ?, password = ? where id = ? ";
 			jdbc.update(sql, user.getEmail(), user.getPassword(), user.getId());
 			update = "User have been updated!";
-			log.debug("User have been Updated "+user.toString());
+			log.debug("User have been Updated"+user.toString());
 		} catch(Exception e) {
 			log.debug("Update have not been executed "+ e);
 		}

@@ -12,30 +12,16 @@ import { LoggedUserService } from 'src/app/shared/services/logged-user.service';
 })
 export class HeaderComponent {
 
-  subscription: Subscription;
-  admin: boolean;
   constructor(private router: Router, public loggedUserService: LoggedUserService, private logservice: LogService ) {
-    this.logservice.logDebugMessage(String('HeaderComponent constructor: admin = '+ this.admin));
+    this.logservice.logDebugMessage(String('HeaderComponent constructor: admin = '+ this.loggedUserService.getAdmin()));
    }
 
-   /*
   signOut() {
     this.logservice.logDebugMessage(String('HeaderComponent SignOut()'));
-    this.signToggleService.removeToken();
+    this.loggedUserService.removeTokens();
     this.router.navigateByUrl('login');
-    this.signToggleService.setLoggedIn(false);
-    this.signToggleService.name = '' ;
+    this.loggedUserService.setLoggedIn(false);
+    this.loggedUserService.setFullName('user');
     window.location.reload();
-   }
-*/
-
-signOut() {
-  this.logservice.logDebugMessage(String('HeaderComponent SignOut()'));
-  this.loggedUserService.removeTokens();
-  this.router.navigateByUrl('login');
-  this.loggedUserService.setLoggedIn(false);
-  this.loggedUserService.setFullName('user');
-  window.location.reload();
- }
-
+  }
 }

@@ -106,11 +106,8 @@ initStorage() {
     let authorities = decodedToken.authorities;
     for(let auth of authorities){
       auth == 'admin' ?  this.admin = true : null;
+     ( auth == 'admin' && this.user == null ) ? this.fullName = 'admin' : null ;
           }
         }
     }
-
-
-
-
 }

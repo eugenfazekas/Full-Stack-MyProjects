@@ -31,6 +31,7 @@ public class UserUpdate {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	@Override
 	public String toString() {
 		return "UserUpdate [id=" + id + ", email=" + email + ", oldPassword=" + oldPassword + ", password=" + password
