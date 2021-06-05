@@ -20,7 +20,8 @@ export class LoggedUserService {
     this.initStorage();
     this.loggedIn = this.auth_token != '' ?  true : false;
     this.fullName = this.user != null ?  this.user.fullName : 'user';
-    this.auth_token != '' ? this.adminCheck(this.auth_token) : false
+    this.auth_token != '' ? this.adminCheck(this.auth_token) : false;
+    this.checkTokenExpiration();
    }
 
 
@@ -110,4 +111,11 @@ initStorage() {
           }
         }
     }
+
+  checkTokenExpiration() {
+        this.auth_token != '' ? 
+                          !this.helper.isTokenExpired(this.auth_token) ? this.loggedIn = true : this.loggedIn = false 
+                                      :
+                                              null;
+  }  
 }

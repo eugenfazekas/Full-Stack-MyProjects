@@ -141,7 +141,7 @@
                 <h5 class="mb-4">Author: {{article.owner}}
                 </h5>
                 <div *ngIf="article.image_title != 'no image' && article.image_title != null">
-                    <img [src]="imageService._url + '/user/' + userId(article.image_title)+'/'+article.image_title+'.png'">
+                    <img [src]="imageService._url + '/images/' + userId(article.image_title)+'/'+article.image_title+'.png'">
                </div>
             <hr>
             </div>

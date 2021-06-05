@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.resource.UserRedirectRequiredException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import com.model.User;
 import com.repository.UserRepository;
@@ -76,5 +77,4 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	public void dropAccountKeyTable() {
 		accountKeyService.dropAccountKeyTable();	
 	}
-
 }

@@ -32,6 +32,7 @@ export class UserRepository {
     this.userRestDataSource.updateUser(user).subscribe(
       res => {
          this.user = res; 
+         this.user.profilePhotos == null ? this.user.profilePhotos = [] : this.user.profilePhotos = res.profilePhotos;
          this.loggedUserService.setUser(user);
         },
       err =>console.log(err)
@@ -71,8 +72,8 @@ export class UserRepository {
           }
 
    getProfilePhoto(): string {
-      let profilePhoto = ( this.user.activeProfilePhoto != undefined && this.user.activeProfilePhoto != "" ) ? this.imageService._url +'/user/'+ this.user.id+'/' + this.user.activeProfilePhoto + '.png' :
-      this.imageService._url + '/user/image/profile_placeholder.png';
+      let profilePhoto = ( this.user.activeProfilePhoto != undefined && this.user.activeProfilePhoto != "" ) ? this.imageService._url +'/images/'+ this.user.id+'/' + this.user.activeProfilePhoto + '.png' :
+      this.imageService._url + '/images/image/profile_placeholder.png';
         return profilePhoto;
    }
    

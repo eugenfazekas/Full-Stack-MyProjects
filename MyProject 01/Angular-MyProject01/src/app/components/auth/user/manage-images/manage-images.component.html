@@ -44,12 +44,12 @@
         </div> 
     </div>
 
-    <div *ngIf=" userRepository.loadedImages && userRepository.getUser()?.profilePhotos[imageIndex] != null " class="border ml-4 float-left ">
+    <div *ngIf=" userRepository.loadedImages && userRepository.getUser()?.profilePhotos?.length > 0 " class="border ml-4 float-left ">
         <h2>Images</h2>
         <div>
             <span class="material-icons md-40 m-2 border ch-200l" (click)="previousImage()"> arrow_back_ios </span>
 
-            <img [src]="imageService._url +'/user/' + id +'/' + userRepository.getUser().profilePhotos[imageIndex] + '.png'" width="84%">
+            <img [src]="imageService._url +'/images/' + id +'/' + userRepository.getUser().profilePhotos[imageIndex] + '.png'" width="84%">
 
                 <span class="material-icons md-40 m-2 border ch-200r" (click)="nextImage()">arrow_forward_ios </span>
 
@@ -63,12 +63,13 @@
 
     <p style="clear:both"></p>
 
-        <div class="border m-4 " *ngIf="userRepository.getUser()?.profilePhotos?.length > 0 " >
+        <div class="border m-4 " *ngIf=" userRepository.getUser() != null &&  userRepository.getUser()?.profilePhotos?.length > 0 "   >
             <div *ngFor="let image of userRepository.getUser().profilePhotos; let i = index" class="float-left mt-3">
-                <img [src]= "imageService._url +'/user/' + id +'/' + image + '.png' " (click)="setImageIndex(i)" width="200" height="150">
+                <img [src]= "imageService._url +'/images/' + id +'/' + image + '.png' " (click)="setImageIndex(i)" width="200" height="150">
                 <div class="clearfix"></div>
             </div>
             <p style="clear:both"></p>
         </div>
+
 </div>
 

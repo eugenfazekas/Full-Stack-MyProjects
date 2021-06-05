@@ -40,11 +40,8 @@ export class FirstStepsComponent implements OnInit {
     });
   }
 
-  getUser() {
-    return this.userRepository.getUser();
-  }
-
   submitForm() { 
+      this.userModel = this.userRepository.getUser();
       this.userModel.address = { country : '' };
       Object.keys(this.firstFormGroup.controls).forEach(c => this.userModel[c] = this.firstFormGroup.controls[c].value);
       Object.keys(this.secondFormGroup.controls).forEach(c => this.userModel.address[c] = this.secondFormGroup.controls[c].value);
