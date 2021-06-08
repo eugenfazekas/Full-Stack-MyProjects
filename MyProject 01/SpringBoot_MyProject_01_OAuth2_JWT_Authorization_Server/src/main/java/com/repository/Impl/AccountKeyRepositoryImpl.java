@@ -2,7 +2,6 @@ package com.repository.Impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.model.AccountKey;
-import com.model.User;
 import com.repository.AccountKeyRepository;
 
 

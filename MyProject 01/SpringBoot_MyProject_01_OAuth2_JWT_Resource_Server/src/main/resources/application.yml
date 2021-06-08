@@ -7,3 +7,9 @@ spring:
       database : ${MONGO_DATABASE}
       port : ${MONGO_PORT}
       host : localhost
+      
+resourceServer:
+  client-jwkKeyUri: ${security.oauth2.resource.jwt.key-uri} 
+  client-id: ${security.oauth2.client.client-id} 
+  client-secret: ${security.oauth2.client.client-secret}       
+      

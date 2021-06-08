@@ -1,18 +1,16 @@
 package com.service.impl;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.client.resource.UserRedirectRequiredException;
 import org.springframework.stereotype.Component;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import com.model.User;
 import com.repository.UserRepository;
 import com.service.AccountKeyService;
 import com.service.MyProjectCommandLineRunnner;
-import com.service.UserService;
 import com.util.ProxyServer;
 
 @Component
@@ -48,6 +46,12 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	}
 
 	public void createDummyUser() {
+		
+		try {
+			TimeUnit.SECONDS.sleep(15);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		User user = new User();
 		UUID uuid = UUID.randomUUID();	

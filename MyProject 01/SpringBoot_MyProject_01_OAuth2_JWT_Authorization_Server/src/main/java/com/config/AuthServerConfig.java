@@ -36,6 +36,12 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 	
 	@Value("${client.secret}")
     private String secret;
+	
+	@Value("${resourceServer.client-id}")
+    private String resourceServerClientId;
+	
+	@Value("${resourceServer.client-secret}")
+    private String resourceServerSecret;
   
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -45,11 +51,15 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
 	@Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
         clients.inMemory()
                 .withClient("client")
                 .secret(passwordEncoder.encode(secret))
                 .authorizedGrantTypes("password")
-                .scopes("read");
+                .scopes("read")
+                .and()
+                .withClient(resourceServerClientId)
+                .secret(passwordEncoder.encode(resourceServerSecret));
     }
 
     @Override
@@ -84,5 +94,4 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
     	security.tokenKeyAccess("isAuthenticated()");
     }
-
 }
