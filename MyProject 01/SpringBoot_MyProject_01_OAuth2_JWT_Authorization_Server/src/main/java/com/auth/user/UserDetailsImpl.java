@@ -1,4 +1,4 @@
-package com.service.impl;
+package com.auth.user;
 
 import java.util.Collection;
 import java.util.HashSet;

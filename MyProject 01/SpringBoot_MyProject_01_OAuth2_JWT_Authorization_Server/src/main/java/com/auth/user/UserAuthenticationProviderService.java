@@ -1,4 +1,4 @@
-package com.auth;
+package com.auth.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -9,11 +9,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.service.impl.UserDetailsImpl;
-import com.service.impl.UserDetailsServiceImpl;
-
 @Service
-public class AuthenticationProviderService implements AuthenticationProvider {
+public class UserAuthenticationProviderService implements AuthenticationProvider {
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
@@ -31,8 +28,7 @@ public class AuthenticationProviderService implements AuthenticationProvider {
 		if(passwordEncoder.matches(password, user.getPassword()) && user.isEnabled() == true) {
 			return new UsernamePasswordAuthenticationToken(
 						user.getId(),
-						password,
-						user.getAuthorities()
+						password
 					);
 		} else {
 			throw new BadCredentialsException("Something went wrong in authentication!");

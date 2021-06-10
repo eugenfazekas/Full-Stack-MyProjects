@@ -34,7 +34,7 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 		createUsersTable();
 		dropAccountKeyTable();
 		createAccountKeyTable();
-		createDummyUser();
+		//createDummyUser();
 	}
 
 	public void createUsersTable() {

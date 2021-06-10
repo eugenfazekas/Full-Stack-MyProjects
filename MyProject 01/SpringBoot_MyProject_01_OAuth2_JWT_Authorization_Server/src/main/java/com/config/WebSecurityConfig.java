@@ -12,7 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
-import com.auth.AuthenticationProviderService;
+import com.auth.user.UserAuthenticationProviderService;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Autowired
-    private AuthenticationProviderService authenticationProvider;
+    private UserAuthenticationProviderService authenticationProvider;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
