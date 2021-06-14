@@ -10,23 +10,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.model.OneTimePassword;
-import com.model.User;
 
 @Service
 public class OneTimePasswordDetailsImpl  implements UserDetails{
 
-	private static final long serialVersionUID = 1L;	
-	
+	private static final long serialVersionUID = 1L;		
 	private OneTimePassword oneTimePassword;
 	private List<String> userAuthorities;
+	
+	public OneTimePasswordDetailsImpl() {
+	}
 
 	public OneTimePasswordDetailsImpl(OneTimePassword oneTimePassword, List<String> userAuthorities) {
 		this.oneTimePassword = oneTimePassword;
 		this.userAuthorities = userAuthorities;
-	}
-
-	public OneTimePasswordDetailsImpl(OneTimePassword oneTimePassword) {
-		this.oneTimePassword = oneTimePassword;
 	}
 
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -61,5 +58,9 @@ public class OneTimePasswordDetailsImpl  implements UserDetails{
 
 	public boolean isEnabled() {
 		return true;
+	}
+	
+	public String getId() {
+		return oneTimePassword.getId();
 	}
 }

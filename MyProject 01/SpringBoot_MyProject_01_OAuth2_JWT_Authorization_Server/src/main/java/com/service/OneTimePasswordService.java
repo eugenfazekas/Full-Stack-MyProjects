@@ -1,14 +1,16 @@
-package com.repository;
+package com.service;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.model.OneTimePassword;
 
-public interface OneTimePasswordRepository {
+public interface OneTimePasswordService {
 
 	void createOneTimePasswordTable();
 	
 	void dropOneTimePasswordTable();
 
-	OneTimePassword createOneTimePassword(OneTimePassword oneTimePassword);
+	String createOneTimePassword();
 	
 	//Integer OneTimePasswordCheck(String email);	
 	

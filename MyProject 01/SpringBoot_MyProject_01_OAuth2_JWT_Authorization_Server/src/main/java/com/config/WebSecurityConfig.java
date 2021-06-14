@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
+import com.auth.password.OneTimePasswordAuthenticationProviderService;
 import com.auth.user.UserAuthenticationProviderService;
 
 @Configuration
@@ -22,9 +23,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
+
+	@Autowired
+    private UserAuthenticationProviderService userAuthenticationProvider;
 	
 	@Autowired
-    private UserAuthenticationProviderService authenticationProvider;
+    private OneTimePasswordAuthenticationProviderService oneTimePasswordAuthenticationProvider;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -33,7 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authenticationProvider);
+        auth.authenticationProvider(userAuthenticationProvider);
+        auth.authenticationProvider(oneTimePasswordAuthenticationProvider);
     }
     
     @Override
@@ -46,7 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure (HttpSecurity http) throws Exception {
     	http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     	http.authorizeRequests().mvcMatchers("user/**").permitAll()
-    		.and().authorizeRequests().anyRequest().authenticated();
-		http.cors().and();
+    	    .and().authorizeRequests().anyRequest().authenticated();
     }
 }

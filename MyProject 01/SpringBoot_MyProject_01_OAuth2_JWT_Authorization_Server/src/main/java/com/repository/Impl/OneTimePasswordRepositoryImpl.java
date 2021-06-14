@@ -38,8 +38,8 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Override
 	public void createOneTimePasswordTable() {
 
-		final String  sql = "CREATE TABLE IF NOT EXISTS ONETIMEPASSWORD (id VARCHAR(36) NOT NULLL, email VARCHAR(64) PRIMARY KEY, UNIQUE KEY UK_email (email), password VARCHAR(36) NOT NULL);";
-		jdbc.execute(sql);
+		final String  sql = "CREATE TABLE IF NOT EXISTS ONETIMEPASSWORD (id VARCHAR(36) NOT NULL, email VARCHAR(64) PRIMARY KEY, UNIQUE KEY UK_email (email), password VARCHAR(64) NOT NULL)";
+		jdbc.execute(sql);  
 		log.debug("ONETIMEPASSWORD Table Created");
 		
 	}
@@ -52,12 +52,13 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	}
 
 	@Override
-	public void createOneTimePassword(OneTimePassword oneTimePassword) {
+	public OneTimePassword createOneTimePassword(OneTimePassword oneTimePassword) {
 		final String sql = "INSERT INTO ONETIMEPASSWORD (id,email,password) VALUES (?,?,?)";
 		jdbc.update(sql,oneTimePassword.getId(),oneTimePassword.getEmail(),oneTimePassword.getPassword());
-		log.debug("New ONETIMEPASSWORD:  " + oneTimePassword.toString());		
+		log.debug("New ONETIMEPASSWORD:  " + oneTimePassword.toString());	
+		return oneTimePassword;	
 	}
-
+/*
 	@Override
 	public Integer OneTimePasswordCheck(String password) {
 		final String  sql = "SELECT COUNT(*) FROM ONETIMEPASSWORD WHERE password = ?";
@@ -65,7 +66,7 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		if(keysFound > 0) { log.debug("ONETIMEPASSWORD Found "+ password); }
 		return keysFound;
 	}
-
+*/
 	@Override
 	public OneTimePassword findOneTimePassword(String email) {
 

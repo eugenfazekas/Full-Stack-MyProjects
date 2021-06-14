@@ -11,6 +11,7 @@ import com.model.User;
 import com.repository.UserRepository;
 import com.service.AccountKeyService;
 import com.service.MyProjectCommandLineRunnner;
+import com.service.OneTimePasswordService;
 import com.util.ProxyServer;
 
 @Component
@@ -18,14 +19,16 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	
 	private UserRepository userRepository;
 	private AccountKeyService accountKeyService;
+	private OneTimePasswordService oneTimePasswordService;
 	private ProxyServer proxyServer;
 
-	
+
 
 	public MyProjectCommandLineRunnerImpl(UserRepository userRepository, AccountKeyService accountKeyService,
-			ProxyServer proxyServer) {
+			OneTimePasswordService oneTimePasswordService, ProxyServer proxyServer) {
 		this.userRepository = userRepository;
 		this.accountKeyService = accountKeyService;
+		this.oneTimePasswordService = oneTimePasswordService;
 		this.proxyServer = proxyServer;
 	}
 
@@ -34,7 +37,9 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 		createUsersTable();
 		dropAccountKeyTable();
 		createAccountKeyTable();
-		//createDummyUser();
+		dropOtpTable();
+		createOtpTable();
+		createDummyUser();
 	}
 
 	public void createUsersTable() {
@@ -48,7 +53,7 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	public void createDummyUser() {
 		
 		try {
-			TimeUnit.SECONDS.sleep(15);
+			TimeUnit.SECONDS.sleep(10);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -59,6 +64,7 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 		user.setEmail("eu@fa.hu");
 	    user.setPassword(new BCryptPasswordEncoder().encode("myPassword"));
 	    user.setActive(true);
+	    user.setMfa(false);
 		userRepository.registerUser(user, "user");
 		proxyServer.sendNewUserId(userRepository.findByEmail(user.getEmail()).getId());  
 		
@@ -68,6 +74,7 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 		user2.setEmail("admin@fa.hu");
 	    user2.setPassword(new BCryptPasswordEncoder().encode("myAdmin"));
 	    user2.setActive(true);
+	    user2.setMfa(true);
 		userRepository.registerUser(user2, "user admin");
 		proxyServer.sendNewUserId(userRepository.findByEmail(user2.getEmail()).getId()); 
 	}
@@ -80,5 +87,16 @@ public class MyProjectCommandLineRunnerImpl implements CommandLineRunner, MyProj
 	@Override
 	public void dropAccountKeyTable() {
 		accountKeyService.dropAccountKeyTable();	
+	}
+
+	@Override
+	public void createOtpTable() {
+		oneTimePasswordService.createOneTimePasswordTable();
+		
+	}
+
+	@Override
+	public void dropOtpTable() {
+		oneTimePasswordService.dropOneTimePasswordTable();
 	}
 }

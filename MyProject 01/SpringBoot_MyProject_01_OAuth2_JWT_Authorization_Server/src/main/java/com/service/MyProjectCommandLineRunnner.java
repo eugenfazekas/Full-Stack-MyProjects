@@ -11,4 +11,8 @@ public interface MyProjectCommandLineRunnner {
 	void createAccountKeyTable();
 	
 	void dropAccountKeyTable();
+	
+	void createOtpTable();
+	
+	void dropOtpTable();
 }

@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +26,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
 import com.model.ProxyUser;
 
 @Component
 public class ProxyServer {
-	
+
 	private final Logger log = LoggerFactory.getLogger(this.getClass()); 
 	
 	@Autowired
@@ -90,5 +91,6 @@ public class ProxyServer {
 				header.set("Authorization", "Bearer "+ accessToken);			
 					return header;
 		}
+
 }
 		

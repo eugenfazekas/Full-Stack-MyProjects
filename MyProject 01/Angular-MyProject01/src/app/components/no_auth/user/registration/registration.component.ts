@@ -18,7 +18,7 @@ constructor(private _userRestDataSourceService: UserRestDataSourceService,
       }
 
 newUser: UserAccount = new UserAccount();
-
+mfaChecked: boolean = false;
 formGroup: UserRegistrationFormGroup = new UserRegistrationFormGroup(this._userRestDataSourceService);
 
 formSubmitted: boolean = false;
@@ -29,6 +29,7 @@ formSubmitted: boolean = false;
         this.formSubmitted = true;
         if (this.formGroup.valid) {
             this.logservice.logDebugMessage(String('RegistrationComponent submitForm() '));
+            this.newUser.mfa = this.mfaChecked;
             this._userRestDataSourceService.saveUser(this.newUser).subscribe(
                 res => this.router.navigateByUrl('')
             )

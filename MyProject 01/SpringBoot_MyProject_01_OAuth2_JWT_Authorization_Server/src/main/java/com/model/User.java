@@ -8,6 +8,7 @@ public class User {
 	private String email;
 	private String password;
 	private boolean active;
+	private boolean mfa;
 	private List<String> authorities;
 
 	public User() {}
@@ -49,6 +50,14 @@ public class User {
 		this.active = active;
 	}
 
+	public boolean isMfa() {
+		return mfa;
+	}
+
+	public void setMfa(boolean mfa) {
+		this.mfa = mfa;
+	}
+
 	public List<String> getAuthorities() {
 		return authorities;
 	}
@@ -59,6 +68,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", active=" + active+ "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", active=" + active + ", mfa=" + mfa
+				+ ", authorities=" + authorities + "]";
 	}
 }

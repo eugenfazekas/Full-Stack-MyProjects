@@ -30,7 +30,7 @@ export class LoginComponent {
             res =>  { this.loggedUserService.setLoggedIn(true);
                       this.userRestDataSourceService.getUser().subscribe(
                               res => { 
-                                 if(res.firstName != null) {this.loggedUserService.setUser(res)};
+                                 if(res.firstName != null) {this.loggedUserService.setUser(res)}; console.log(res)
                                  return  res != null ?  
                                                 res.firstName  == null ?  this.router.navigateByUrl('firstSteps') : this.router.navigateByUrl('') // return this
                                                                                                 :             

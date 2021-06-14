@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatFormFieldModule,
     MatIconModule,
     MatStepperModule,
+    MatSlideToggleModule 
   ],
   exports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatDatepickerModule,  
     MatFormFieldModule,
     MatIconModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSlideToggleModule 
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

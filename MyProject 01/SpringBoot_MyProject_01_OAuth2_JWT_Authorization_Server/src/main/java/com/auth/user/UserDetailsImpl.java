@@ -62,4 +62,8 @@ public class UserDetailsImpl  implements UserDetails{
 	public String getId() {
 		return user.getId();
 	}
+	
+	public boolean isMfa() {
+		return user.isMfa();
+	}
 }

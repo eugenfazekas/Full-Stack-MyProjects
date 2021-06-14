@@ -6,6 +6,7 @@ export class UserAccount {
     public id? : string,
     public email?: string,
     public	oldPassword?: string,
-    public	password?: string
+    public	password?: string,
+    public mfa?: boolean
    ) {}
 }

@@ -33,15 +33,16 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 			n.setEmail(rs.getString("email"));
 			n.setPassword(rs.getString("password"));
 			n.setActive(rs.getBoolean("active"));
+			n.setMfa(rs.getBoolean("mfa"));
 			n.setAuthorities(Arrays.asList(rs.getString("authorities").split(" ")));
-			
+					
 			return n;
 		}
 	};
 	
 	@Override
 	public void createUsersTable() {
-		final String  sql = "CREATE TABLE IF NOT EXISTS USERS (id VARCHAR(36) PRIMARY KEY, email VARCHAR(64) NOT NULL, UNIQUE KEY UK_email (email), password VARCHAR(64) NOT NULL, active BOOLEAN, authorities VARCHAR(64) NOT NULL);";
+		final String  sql = "CREATE TABLE IF NOT EXISTS USERS (id VARCHAR(36) PRIMARY KEY, email VARCHAR(64) NOT NULL, UNIQUE KEY UK_email (email), password VARCHAR(64) NOT NULL, active BOOLEAN, mfa BOOLEAN, authorities VARCHAR(64) NOT NULL);";
 		jdbc.execute(sql);
 		log.debug("Users Table Created");
 	}
@@ -83,8 +84,8 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Override
 	public String registerUser(User user,String authorities) {
 	
-		final String sql = "INSERT INTO USERS (id,email,password,active,authorities) VALUES (?,?,?,?,?)";
-		jdbc.update(sql,user.getId(),user.getEmail(),user.getPassword(),user.isActive(),authorities);
+		final String sql = "INSERT INTO USERS (id,email,password,active,mfa,authorities) VALUES (?,?,?,?,?,?)";
+		jdbc.update(sql,user.getId(),user.getEmail(),user.getPassword(),user.isActive(),user.isMfa(),authorities);
 		log.debug("New User registered "+user.toString());
 		return "User Registered";
 	}
