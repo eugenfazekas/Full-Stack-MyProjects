@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.model.User;
 import com.model.UserUpdate;
+import com.service.OneTimePasswordService;
 import com.service.UserService;
 
 @RestController
@@ -20,11 +22,13 @@ import com.service.UserService;
 public class UserController {
 
 	private UserService userService;
-
-	public UserController(UserService userService) {
-		this.userService = userService;
-	}
+	private OneTimePasswordService oneTimePasswordService;
 	
+	public UserController(UserService userService, OneTimePasswordService oneTimePasswordService) {
+		this.userService = userService;
+		this.oneTimePasswordService = oneTimePasswordService;
+	}
+
 	@RequestMapping(value = "registerUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String registerUser(@RequestBody User user) {
 		userService.registerUser(user);
@@ -48,4 +52,14 @@ public class UserController {
 	public String updateUserAccount(@RequestBody UserUpdate user) {
 		return userService.updateUser(user);
 	}
+	
+	@PostMapping("/createOneTimePassword")
+    public String createOneTimePassword() {
+		return oneTimePasswordService.createOneTimePassword();
+    }
+	
+	@PostMapping("/mfaCheck")
+    public String mfaCheck() {
+		return userService.mfaCheck();
+    }
 }

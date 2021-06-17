@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired 
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	public UserServiceImpl(AccountKeyService accountKeyService, UserRepository userRepository, EmailService emailService, ProxyServer proxyServer) {
 		this.accountKeyService = accountKeyService;
@@ -114,5 +118,22 @@ public class UserServiceImpl implements UserService{
 			return userRepository.updateUser(user);
 		}
 		return null;
+	}
+
+	@Override
+	public String mfaCheck() {
+		String email = request.getHeader("email");
+		
+		User user =	userRepository.findByEmail(email);	
+		
+		if(user != null && user.isMfa()) {
+			return "true";
+		}
+		
+		else if(user != null && !user.isMfa()) {
+			return "false";
+		}	
+		
+		return 	"User Not Exist!";
 	}
 }

@@ -20,4 +20,6 @@ public interface UserService {
 	void userActivation(String key);
 	
 	String updateUser(UserUpdate user);
+	
+	String mfaCheck();
 }

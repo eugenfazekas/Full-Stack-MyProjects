@@ -9,6 +9,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.service.OneTimePasswordService;
+
 @Service
 public class OneTimePasswordAuthenticationProviderService implements AuthenticationProvider {
 
@@ -21,6 +23,9 @@ public class OneTimePasswordAuthenticationProviderService implements Authenticat
 	@Autowired
 	private OneTimePasswordDetailsServiceImpl oneTimePasswordDetailsServiceImpl;
 	
+	@Autowired
+	private OneTimePasswordService oneTimePasswordService;
+	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
@@ -29,6 +34,7 @@ public class OneTimePasswordAuthenticationProviderService implements Authenticat
 		OneTimePasswordDetailsImpl otpDetails = oneTimePasswordDetailsServiceImpl.loadUserByUsername(username);
 		
 		if(passwordEncoder.matches(code, otpDetails.getPassword())) {
+			oneTimePasswordService.removeOneTimePassword(username);
 			return new UsernamePasswordAuthenticationToken(
 						otpDetails.getId(),
 						code,

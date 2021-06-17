@@ -10,7 +10,7 @@ public interface OneTimePasswordRepository {
 
 	OneTimePassword createOneTimePassword(OneTimePassword oneTimePassword);
 	
-	//Integer OneTimePasswordCheck(String email);	
+	Integer OneTimePasswordCheck(String email);	
 	
 	OneTimePassword findOneTimePassword(String email);	
 	

@@ -58,15 +58,15 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		log.debug("New ONETIMEPASSWORD:  " + oneTimePassword.toString());	
 		return oneTimePassword;	
 	}
-/*
+
 	@Override
-	public Integer OneTimePasswordCheck(String password) {
-		final String  sql = "SELECT COUNT(*) FROM ONETIMEPASSWORD WHERE password = ?";
-		int keysFound = jdbc.queryForObject(sql, new Object[] {password}, Integer.class); 
-		if(keysFound > 0) { log.debug("ONETIMEPASSWORD Found "+ password); }
+	public Integer OneTimePasswordCheck(String email) {
+		final String  sql = "SELECT COUNT(*) FROM ONETIMEPASSWORD WHERE email = ?";
+		int keysFound = jdbc.queryForObject(sql, new Object[] {email}, Integer.class); 
+		if(keysFound > 0) { log.debug("ONETIMEPASSWORD Found "+ email); }
 		return keysFound;
 	}
-*/
+
 	@Override
 	public OneTimePassword findOneTimePassword(String email) {
 

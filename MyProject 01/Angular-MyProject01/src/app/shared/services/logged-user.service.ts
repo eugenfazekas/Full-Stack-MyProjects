@@ -15,6 +15,7 @@ export class LoggedUserService {
   public fullName: string = 'user';
   private admin: boolean = false;
   private helper = new JwtHelperService();
+  private mfa: boolean = false;
 
   constructor(private logservice: LogService) {
     this.initStorage();
@@ -31,6 +32,7 @@ initStorage() {
   this.id = localStorage.getItem('id') != null ? localStorage.getItem('id') : '';   
   let user = localStorage.getItem('user') != null ? localStorage.getItem('user') : '';
   this.user = user != '' ? JSON.parse(user) : user = null;
+  localStorage.getItem('mfa') == 'true' ? this.mfa = true : this.mfa = false;  
      return ;
  }
 
@@ -59,8 +61,8 @@ initStorage() {
 
   setToken(token: string) {
     this.logservice.logDebugMessage(String('TokenService setToken()'));
-    localStorage.setItem('token', token);
     this.auth_token = token;
+    localStorage.setItem('token', token);  
  }
 
   getUser() {
@@ -118,4 +120,13 @@ initStorage() {
                                       :
                                               null;
   }  
+
+  setMfa(mfa: boolean) {
+    mfa == true ? localStorage.setItem('mfa', 'true') : localStorage.setItem('mfa', 'false') ;
+    this.mfa = mfa;
+  }
+
+  getMfa() {
+    return this.mfa;
+  }
 }

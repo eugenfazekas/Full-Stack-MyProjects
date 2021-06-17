@@ -17,13 +17,13 @@ public class OneTimePasswordDetailsServiceImpl implements UserDetailsService {
 	private UserRepository userRepository;
 	
 	@Autowired
-	private OneTimePasswordRepository oneTimePasswordRepository ;
+	private OneTimePasswordRepository oneTimePasswordRepository;
 
 	public OneTimePasswordDetailsImpl loadUserByUsername(String username)  {
 
 		User user = userRepository.findByEmail(username);
 		OneTimePassword otp = oneTimePasswordRepository.findOneTimePassword(username);
-		if(user == null || otp == null) {
+		if(user == null || otp == null || !user.isMfa()) {
 			throw new UsernameNotFoundException(username);
 		}
 		return new OneTimePasswordDetailsImpl(otp, user.getAuthorities());

@@ -31,7 +31,9 @@ formSubmitted: boolean = false;
             this.logservice.logDebugMessage(String('RegistrationComponent submitForm() '));
             this.newUser.mfa = this.mfaChecked;
             this._userRestDataSourceService.saveUser(this.newUser).subscribe(
-                res => this.router.navigateByUrl('')
+                res => {
+                    this.router.navigateByUrl('')
+                }
             )
         }
     } 
