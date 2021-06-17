@@ -109,12 +109,13 @@ public class UserServiceImpl implements UserService{
 	public String updateUser(UserUpdate userUpdate) {
 		User user = userRepository.findById(userUpdate.getId());
 		if(passwordEncoder.matches(userUpdate.getOldPassword(), user.getPassword())) {
-			if(userUpdate.getPassword() != null) {
+			if(userUpdate.getPassword() != null && userUpdate.getPassword() != "") {
 				user.setPassword(passwordEncoder.encode(userUpdate.getPassword()));
 			}
-			if(userUpdate.getEmail() != null) {
+			if(userUpdate.getEmail() != null && userUpdate.getEmail() != "") {
 				user.setEmail(userUpdate.getEmail());
 			}
+			user.setMfa(userUpdate.isMfa());
 			return userRepository.updateUser(user);
 		}
 		return null;

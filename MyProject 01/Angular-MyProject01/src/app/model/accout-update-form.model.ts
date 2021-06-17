@@ -19,10 +19,10 @@ modelProperty: string;
             for (let errorName in this.errors) {
                 switch (errorName) {
                     case "required":
-                        messages.push(`You must enter a ${this.label}`);
+                        messages.push(`You must enter ${this.label}`);
                         break;
                     case "minlength":
-                        messages.push(`A ${this.label} must be at least
+                        messages.push(`${this.label} must be at least
                             ${this.errors['minlength'].requiredLength} characters`);
                         break;
                     case "maxlength":
@@ -45,27 +45,24 @@ export class AccountUpdateFormModelGroup extends FormGroup {
 
         super({   
                 email: new AccountUpdateFormModel("Email","email","",Validators.compose([
-                    Validators.required,
                     Validators.pattern("^[\\w-\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"),
                     Validators.minLength(5),
                     Validators.maxLength(30)
                     ]),
                 ),
 
-                oldPassword: new AccountUpdateFormModel("OldPassword","oldPassword","",Validators.compose([
+                oldPassword: new AccountUpdateFormModel("ActualPassword","oldPassword","",Validators.compose([
                     Validators.required,
                     Validators.minLength(5),
                     Validators.maxLength(30)
                 ])),
 
                 password: new AccountUpdateFormModel("NewPassword","password","",Validators.compose([
-                    Validators.required,
                     Validators.minLength(5),
                     Validators.maxLength(30)
                 ])),
 
                 confirmPassword: new AccountUpdateFormModel("ConfirmNewPassword","confirmPassword","",Validators.compose([
-                    Validators.required,
                     Validators.minLength(5),
                     Validators.maxLength(30)
                 ]))

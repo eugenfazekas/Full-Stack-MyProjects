@@ -27,11 +27,13 @@ export class EditUserDetailsComponent {
   formGroup: AccountUpdateFormModelGroup = new AccountUpdateFormModelGroup();
   responseText: string;
   responseToggle: boolean = false;
+  mfaChecked: boolean;
 
   constructor(public userRepository: UserRepository, private formBuilder: FormBuilder, private loggedUserService: LoggedUserService,
       private logservice: LogService, public imageService: ImageService) {
       this.logservice.logDebugMessage(String('EditUserDetailsComponent constructor: '));
       this.firstName = loggedUserService.getUser() != null ? loggedUserService.getUser().firstName : 'User';
+      this.mfaChecked = loggedUserService.getMfa();
   }
 
     editUserDetailsForm = this.formBuilder.group({ 
@@ -84,6 +86,7 @@ export class EditUserDetailsComponent {
           this.logservice.logDebugMessage(String('RegistrationComponent submitForm() '));
           Object.keys(this.formGroup.controls).forEach(c => this.userAccount[c] = this.formGroup.controls[c].value);
           this.userAccount.id = this.userRepository.getUser().id;
+          this.userAccount.mfa = this.mfaChecked; console.log(this.userAccount)
           this.userRepository.updateAccount(this.userAccount).subscribe(
             res => {
                this.responseText = res ;

@@ -111,8 +111,8 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		
 		String update = "User not updated!";
 		try {
-			final String  sql ="UPDATE users SET email = ?, password = ? where id = ? ";
-			jdbc.update(sql, user.getEmail(), user.getPassword(), user.getId());
+			final String  sql ="UPDATE users SET email = ?, password = ?, mfa = ?  where id = ? ";
+			jdbc.update(sql, user.getEmail(), user.getPassword(), user.isMfa(), user.getId() );
 			update = "User have been updated!";
 			log.debug("User have been Updated"+user.toString());
 		} catch(Exception e) {

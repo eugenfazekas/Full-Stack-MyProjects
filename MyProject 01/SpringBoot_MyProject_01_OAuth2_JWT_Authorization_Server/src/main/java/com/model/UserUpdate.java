@@ -6,6 +6,7 @@ public class UserUpdate {
 	private String email;
 	private String oldPassword;
 	private String password;
+	private boolean mfa;
 	
 	public String getId() {
 		return id;
@@ -32,9 +33,16 @@ public class UserUpdate {
 		this.password = password;
 	}
 	
+	public boolean isMfa() {
+		return mfa;
+	}
+	public void setMfa(boolean mfa) {
+		this.mfa = mfa;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserUpdate [id=" + id + ", email=" + email + ", oldPassword=" + oldPassword + ", password=" + password
-				+ "]";
+				+ ", mfa=" + mfa + "]";
 	}
 }

@@ -41,9 +41,11 @@ initStorage() {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     localStorage.removeItem('user');
+    localStorage.removeItem('mfa');
     this.auth_token = '';
     this.id = '';
     this.user = null;
+    this.mfa = null;
   }
 
   getId() {
@@ -121,9 +123,9 @@ initStorage() {
                                               null;
   }  
 
-  setMfa(mfa: boolean) {
-    mfa == true ? localStorage.setItem('mfa', 'true') : localStorage.setItem('mfa', 'false') ;
-    this.mfa = mfa;
+  setMfa(mfa: string) {
+   mfa == 'true' ? this.mfa = true : this.mfa = false;
+   localStorage.setItem('mfa', mfa);
   }
 
   getMfa() {

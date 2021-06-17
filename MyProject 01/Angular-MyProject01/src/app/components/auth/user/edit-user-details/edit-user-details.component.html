@@ -92,6 +92,13 @@
     <div class="cBorder float-left ml-4 mt-2 p-4 col-5" style="background-color:#efefef" *ngIf="editAccount">
         <h2>Update Account</h2>
         <div class="m-2" >
+
+            <div class="" >
+                <h5 class="float-left">Enable MultiFactor Authorization</h5>
+                <mat-slide-toggle class="ml-3" [(ngModel)]="mfaChecked"></mat-slide-toggle>
+                <div class="mb-3 float-none"></div>
+            </div>
+
             <form class="border" novalidate [formGroup]="formGroup" (ngSubmit)="submitAccountForm()">
 
                 <div class="form-group" *ngFor="let control of formGroup.userControls">

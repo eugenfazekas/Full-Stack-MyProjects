@@ -44,6 +44,7 @@ export class LoginComponent {
                       res != 'User Not Exist!' && res == 'true' ? this.mfaChecked = true : this.mfaChecked = false ;
                       res == 'User Not Exist!' ?   this.errorMessageCheck = true  : this.errorMessageCheck = false; 
                       res != 'User Not Exist!' ? this.myStepper.next() : null;
+                      res != 'User Not Exist!' ? this.loggedUserService.setMfa(res) : null;
                    }
       )
     }
