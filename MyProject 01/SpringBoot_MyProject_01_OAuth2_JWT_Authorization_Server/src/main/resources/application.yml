@@ -36,7 +36,7 @@ auth:
       url : ${RESOURCE_SERVER_BASE_URL} 
       
 resourceServer:
-  client-id: ${security.oauth2.client.client-id} 
-  client-secret: ${security.oauth2.client.client-secret} 
+  client-id: ${SECURITY_OAUTH2_CLIENT_ID} 
+  client-secret: ${SECURITY_OAUTH2_CLIENT_SECRET} 
         
   
