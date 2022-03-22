@@ -1,0 +1,31 @@
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+  }
+  
+.example-radio-button{
+    margin-top: 0.75rem;
+    margin-bottom: 0.75
+    rem;
+}
+
+.quiz{
+    margin-left: 10%;
+}
+
+
+.main{
+    width:75%;
+    margin: auto;
+    border: 1px solid black;
+}
+
+.red-text {
+    color: red;
+ }
+ 
+ .green-text {
+     color: #008311;
+  }

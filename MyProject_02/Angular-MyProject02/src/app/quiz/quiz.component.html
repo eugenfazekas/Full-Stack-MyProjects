@@ -1,0 +1,22 @@
+<div class="main">
+  <div class="quiz">
+    <h1>Nemet nyelv kviz kerdesek</h1>
+    <h3>Helyes valaszok szama {{quizGoodQuestionCounter + ' / '+quizQuestionsCounter}}</h3>
+    <h3>Helyes kvizek szama {{quizCounter}}</h3>
+    <button mat-raised-button color="primary" *ngIf="initStartQuizButtonCheck"  (click)="getNewQuiz()">{{quizQuestionsCounter > 0 ? 'A Kviz folytatasa':'Kviz kezdese'}}</button>
+    <div  *ngIf="quiz.responses.length > 1" >
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label" [(ngModel)]="selectedResponse"
+        class="example-radio-group">
+        <h3>Mi a jelentese a kovetkezo nemet szonak: {{quiz.word}}</h3>
+        <mat-radio-button class="example-radio-button" *ngFor="let response of quiz.responses" [value]="response">
+          {{response}}
+        </mat-radio-button>
+        <p></p>
+        <h3 *ngIf="checkedResponse" [ngClass]="{ 'green-text': responseText == 'Helyes volt a valasz!', 'red-text': responseText != null }">{{responseText}}</h3>
+      </mat-radio-group>
+      <button mat-raised-button color="primary" (click)="next()">{{nextButtonText}}</button>
+    </div>
+  </div>
+</div>
+

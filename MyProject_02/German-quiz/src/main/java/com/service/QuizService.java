@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.model.Quiz;
+import com.model.QuizQuestionCounter;
 import com.repository.QuizRepository;
 
 @Service
@@ -19,6 +20,36 @@ public class QuizService {
 
 	public int getRandomNumber(int min, int max) {
 	    return (int) ((Math.random() * (max - min)) + min);
+	}
+	
+	public QuizQuestionCounter updateCounter(String german, String hungarian) {
+		
+		String checked = checkResponse(german,hungarian);
+		int quizQuestionCounter = quizRepository.getQuizRepoQuestionCounter();
+		int quizCounter = quizRepository.getQuizRepoCounter();
+		int quizGoodQuestionCounter = quizRepository.getQuizGoodQuestionCounter();
+		
+		if(checked == null && quizQuestionCounter < 26) {
+			quizGoodQuestionCounter++;
+			quizRepository.setQuizGoodQuestionCounter(quizGoodQuestionCounter);
+		}
+		
+		else if(checked == null && quizQuestionCounter == 26) {
+			quizQuestionCounter++;
+			quizRepository.setQuizRepoCounter(quizQuestionCounter);
+			quizRepository.setQuizGoodQuestionCounter(0);		
+		}
+		
+		if(!hungarian.equals("null")) {
+			quizRepository.setQuizRepoQuestionCounter(quizQuestionCounter+1);
+			quizQuestionCounter++;
+		}
+		QuizQuestionCounter counter = new QuizQuestionCounter();
+		counter.setQuizQuestionCounter(quizQuestionCounter);
+		counter.setQuizGoodQuestionCounter(quizGoodQuestionCounter);
+		counter.setQuizCounter(quizCounter);
+		counter.setGoodResponse(checked);
+		return counter;
 	}
 	
 	public Quiz createNewQuizQuestion(Quiz quiz) {
@@ -65,7 +96,7 @@ public class QuizService {
 		return random;
 	}
 	
-	public boolean checkResponse(String german, String hungarian) {
+	public String checkResponse(String german, String hungarian) {
 		
 		int germanIndex = -1;
 		int hungarianIndex = 0;
@@ -80,7 +111,9 @@ public class QuizService {
 		for(int i = 0; i < hungarianDb.length; i++) 
 			if(hungarianDb[i].equals(hungarian))
 				hungarianIndex = i;
+		
+		String goodResponse = hungarianDb[germanIndex];
 
-		return germanIndex == hungarianIndex;
+		return germanIndex == hungarianIndex ? null : goodResponse;
 	}
 }
