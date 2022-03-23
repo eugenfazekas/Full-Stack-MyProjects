@@ -24,7 +24,7 @@ export class QuizComponent {
 
   constructor(private _api:RestApiService) { 
     this.selectedResponse = '';
-    this._api.counter_check("du","null").subscribe(
+    this._api.counter_check("lieben","null").subscribe(
        res => {
          this.quizCounter = res.quizCounter;
          this.quizGoodQuestionCounter = res.quizGoodQuestionCounter;

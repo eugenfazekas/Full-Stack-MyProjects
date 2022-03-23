@@ -29,7 +29,7 @@ public class DataBindService {
 		
 		for (int i = 0 ; i < libraryPath().length ; i++)	{
 		String rawInputFileString = inputStringService.rawString(libraryPath()[i]);
-		String[] ge_hu_pair_array = splitElements(rawInputFileString,",");
+		String[] ge_hu_pair_array = splitElements(rawInputFileString,";");
 
 			for(int j = 0; j < ge_hu_pair_array.length; j++ ) {
 				String ge_hu_pair[] = splitElements(ge_hu_pair_array[j],"=");
@@ -50,7 +50,7 @@ public class DataBindService {
 	}
 	
 	String[] libraryPath() {
-		String path[] = {"static/a-e.txt","static/f-j.txt","static/k-o.txt","static/p-t.txt","static/u-z.txt"};
+		String path[] = {"static/egyeb_szavak.txt","static/fonevek.txt","static/igek.txt","static/melleknevek.txt"};
 		return path;
 	}
 	
@@ -59,7 +59,7 @@ public class DataBindService {
 		int index = 0;
 		for (int i = 0 ; i < libraryPath().length ; i++)	{
 			String rawInputFileString = inputStringService.rawString(libraryPath()[i]);
-			String[] ge_hu_pair_array = splitElements(rawInputFileString,",");
+			String[] ge_hu_pair_array = splitElements(rawInputFileString,";");
 			for(int j = 0; j < ge_hu_pair_array.length; j++ )
 				index++;
 		}

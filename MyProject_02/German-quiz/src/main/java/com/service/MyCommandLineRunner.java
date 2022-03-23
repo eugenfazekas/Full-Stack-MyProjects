@@ -22,7 +22,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		dataBindService.loadLibrary();
-		generatetestquiz();
+		//generatetestquiz();
 	}
 	
 	void generatetestquiz() {
