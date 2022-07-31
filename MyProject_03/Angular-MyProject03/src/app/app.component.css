@@ -1,0 +1,111 @@
+.container {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: aliceblue;
+}
+
+.left-side {
+    float: left;
+    width: 40%;
+    height: 100%;
+}
+
+.right-side {
+    float: left;
+    width: 59.5%;
+    max-height: 100%;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.border {
+    border:solid blue 1px;
+}
+
+.clear {
+    clear: both;
+}
+
+.chatContainer {
+    background-color: whitesmoke;
+}
+
+.m-05{
+    margin: 0.5rem;
+}
+
+.m-1{
+    margin: 1rem;
+}
+.ml-05{
+    margin-left: 0.5rem;
+}
+.ml-1 {
+    margin-left: 1rem;
+}
+
+.ml-2 {
+    margin-left: 2rem;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.left {
+    margin-top: 0.5rem;
+    float: left;
+    width: 60%;
+    border: 3px solid #00dd00;
+    border-radius: 15px;
+    background-color: #00ff00;
+}
+
+.right {
+    margin-top: 0.5rem;
+    float: right;
+    width: 60%;
+    border: 3px solid #ee7700;
+    border-radius: 15px;
+    background-color: #ff8800;
+}
+
+.max-height100 {
+    overflow: scroll;
+}
+
+.username {
+    margin-top: 0.5rem;
+    margin-left: 30px;
+    font-size: 15px;
+    width: 50%;
+    text-transform: capitalize;
+}
+.usertext {
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.green-text {
+    color: green;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.date{
+    margin-top: 0.5rem;
+    margin-right: 5%;
+}

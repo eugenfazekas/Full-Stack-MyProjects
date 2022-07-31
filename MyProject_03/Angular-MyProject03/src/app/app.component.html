@@ -1,0 +1,63 @@
+<div [style.height.vh]="70" class="container border">
+  <div class="left-side border">
+    <form [formGroup]="userNameForm" (ngSubmit)="submitUserName()">
+      <div class="m-1 capitalize">
+          <label class="m-1" *ngIf="userListService.userName != ''" >
+           Welcome {{userListService.userName}}
+          </label>
+          <div class="m-1">
+            <input id="userName" type="text" formControlName="userName">
+          </div>
+          <button class="button m-1" type="submit">Selecet Nickname</button>
+        </div>
+    </form>
+  <div class="user-list border" >
+    <ul *ngFor="let user of this.userListService.users">
+      <li (click)="selectUser(user.username!)">
+        <div class="">
+          <div class="float-left  pointer" >{{user.username}}      
+          </div>
+          <div class="float-left  ml-1" *ngIf="user.newMessage == true">
+               {{user.newMessageCounter}} 
+          </div>
+          <div class="float-left  ml-05 green-text" *ngIf="user.newMessage == true">
+            new
+       </div>
+          
+        </div>
+      </li>
+    </ul>
+  </div>
+  </div>
+  <div *ngIf="this.userListService.selectedUser !== ''" class="right-side border chatContainer ">
+      <div>
+        <br>
+        <h3  class="m-1" >{{userListService.selectedUser}}</h3>
+      </div>
+      <p class="clear"></p>
+      <div [style.height.vh]="47" class="border max-height100">
+        <div class="m-05 " *ngFor="let message of this.chatService.userChat?.messages" >
+          <div [class]="message.username !== this.userListService.userName ? 'left' : 'right'" >
+            <div class="float-right date">
+              {{ message.date | date:'ccc, h:mm:ss' }} 
+            </div>
+            <div class="username"><b>{{message.username}}</b></div>
+            <p class="usertext">{{message.message}}</p>
+          </div>
+          <p class="clear"> </p>
+        </div>
+      </div>
+      <div class="border">
+        <textarea class="m-1" [(ngModel)]='message' rows="3" cols="35">                             
+        </textarea>
+        <p class="clear"></p>
+        <div class="ml-1">
+          <button  (click)="sendMessage()">Send message</button>
+        </div >
+        <br>
+      </div>    
+  </div>
+</div>
+
+                                                                                                              
+
